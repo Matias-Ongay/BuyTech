@@ -5,58 +5,58 @@ const port = 3000//puerto que se va a usar
 const products = [
     {
         id:1,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
     {
         id:2,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
     {
         id:3,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
     {
         id:4,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
     {
         id:5,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
     {
         id:6,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
     {
         id:7,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
     {
         id:8,
-        name:"name",
+        name:"RTX 3080",
         price: 50,
-        image:"images.jpg",
+        image:"./images/rtx 3080.jpg",
         stock:400
     },
 ];
