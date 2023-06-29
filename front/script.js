@@ -1,34 +1,61 @@
 /*carrusel de productos*/ 
-const carouselInner = document.getElementById('carousel-inner');
-const prevButton = document.querySelector('.carousel-prev');
-const nextButton = document.querySelector('.carousel-next');
-const containerProducts = document.querySelectorAll('.container-product');
 
-let currentIndex = 0;
+let count = 0;
+let inc = 0;
+let margin = 0;
+let slider = document.getElementById("slider-width"); // No se necesita el índice [0]
+let itemDisplay = 0;
 
-containerProducts[currentIndex].classList.add('show');
+let itemSlide = 0; // Declarar e inicializar la variable itemSlide
 
-nextButton.addEventListener('click', () => {
-  containerProducts[currentIndex].classList.remove('show');
-  currentIndex++;
-  if (currentIndex >= containerProducts.length) {
-    currentIndex = 0;
+if (screen.width > 990) {
+  itemDisplay = document.getElementById("carousel").getAttribute("item-display-d"); // No se necesita el índice [0]
+  margin = itemDisplay * 5;
+} else if (screen.width > 700 && screen.width < 990) {
+  itemDisplay = document.getElementById("carousel").getAttribute("item-display-t"); // No se necesita el índice [0]
+  margin = itemDisplay * 6.8;
+} else if (screen.width > 280 && screen.width < 700) {
+  itemDisplay = document.getElementById("carousel").getAttribute("item-display-m"); // No se necesita el índice [0]
+  margin = itemDisplay * 20;
+}
+
+let items = slider.getElementsByClassName("container-product"); // No se necesita el punto (.) en getElementsByClassName
+let itemLeft = items.length % itemDisplay;
+itemSlide = Math.floor(items.length / itemDisplay) - 1;
+
+for (let i = 0; i < items.length; i++) {
+  items[i].style.width = `${(screen.width / itemDisplay) - margin}px`;
+}
+
+function next() {
+  if (inc !== itemSlide + itemLeft) {
+    if (inc === itemSlide) {
+      inc = inc + itemLeft;
+      count = count - (screen.width / itemDisplay) * itemLeft;
+    } else {
+      inc++;
+      count = count - screen.width;
+    }
   }
-  containerProducts[currentIndex].classList.add('show');
-  carouselInner.style.transform = `translateX(${-currentIndex * 100}%)`;
-});
+  slider.style.left = `${count}px`;
+}
 
-prevButton.addEventListener('click', () => {
-  containerProducts[currentIndex].classList.remove('show');
-  currentIndex--;
-  if (currentIndex < 0) {
-    currentIndex = containerProducts.length - 1;
+function prev() {
+  if (inc !== 0) {
+    if (inc === itemLeft) {
+      inc = inc - itemLeft;
+      count = count + (screen.width / itemDisplay) * itemLeft;
+    } else {
+      inc--;
+      count = count + screen.width;
+    }
   }
-  containerProducts[currentIndex].classList.add('show');
-  carouselInner.style.transform = `translateX(${-currentIndex * 100}%)`;
-});
+  console.log(inc);
+  slider.style.left = `${count}px`;
+}
 
 
+  
 /*productos por la API*/ 
 let products = [];
 
