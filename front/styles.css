@@ -27,6 +27,9 @@ body{
     justify-content: space-between;
     padding: 13px 13px 0px 13px;  
 }
+.sub button{
+  border: 0px;
+}
 .sub a{
     text-decoration: none;
     color:#782424 ;
@@ -51,6 +54,43 @@ body{
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' width='30' height='30'%3e%3cpath stroke='%23E6E9F2' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
  /*header*/
+ /*Carrito*/
+ 
+ .popup-container{
+  position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+ }
+ .popup-content {
+  position: fixed;
+  max-width: 95%;
+  height: 80%;
+  background-color: white;
+  padding: 10px;
+  color: rgb(43, 52, 130);
+  top: 90px;
+}
+.popup-close {
+   
+  position: absolute;
+  top: 10px;
+  right: x;
+  border: solid white;
+  background-color: white;
+  padding: 3px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  color: rgb(231, 73, 73);
+  z-index: 3;
+}
  /*main*/
 .hot-sale{
     display: flex;
@@ -116,6 +156,7 @@ body{
     font-size: 25px;
     border-radius: 10px;
     box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border:0px
   }
   
   .text {
@@ -126,7 +167,7 @@ body{
   .carousel-prev,
   .carousel-next,.carousel-prev2,.carousel-next2 {
     position: absolute;
-    top: 55%;
+    top: 68%;
     width: 45px;
     border: none;
     cursor: pointer;

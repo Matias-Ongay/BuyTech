@@ -15,8 +15,8 @@
             <h1>BuyTech</h1>
         </div>
         <div class="sub">
-            <a href=""><img src="./images/usuario.png" alt="usuario">  Acceder</a>
-            <a href=""><img src="./images/carrito.png" alt="carrito"> Carrito</a>
+            <button href=""><img src="./images/usuario.png" alt="usuario">  Acceder</button>
+            <button id="carrito" href=""><img src="./images/carrito.png" alt="carrito"> Carrito</button>
         </div>
         <nav class="navbar navbar-expand-lg custom-navbar " >
             <div class="container-fluid">
@@ -28,13 +28,13 @@
                 <ul class="navbar-nav">
                   
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="#">Productos</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="#">Nosotros</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link">Disabled</a>
+                    <a class="nav-link">Contacto</a>
                   </li>
                 </ul>
               </div>
@@ -68,41 +68,14 @@
           </div>
     </header>
     <main>
+      <div id="pop"></div>
       <div class="hot-sale">
         <div class="line1">
           <h2><img src="./images/hot.png" alt="icono de hot sale"> Hot sale</h2>
         </div>
       </div>
       <div class="carrousel" item-display-d="4" item-display-t="3"  item-display-m="1">
-        <div class="slider-width">
-          <div class="container-product">
-            <div class="image">
-              <img src="./images/rtx 3080.jpg" alt="rtx 3080">
-            </div>
-            <div class="description">
-              <p class="text">RTX 3080 12G</p>
-              <p class="text">250000$</p>
-            </div>
-          </div>
-          <div class="container-product">
-            <div class="image">
-              <img src="./images/rtx 3080.jpg" alt="rtx 3080">
-            </div>
-            <div class="description">
-              <p class="text">RTX 3080 12G</p>
-              <p class="text">250000$</p>
-            </div>
-          </div>
-          <div class="container-product">
-            <div class="image">
-              <img src="./images/rtx 3080.jpg" alt="rtx 3080">
-            </div>
-            <div class="description">
-              <p class="text">RTX 3080 12G</p>
-              <p class="text">250000$</p>
-            </div>
-          </div>
-        </div>
+        <div class="slider-width"></div>
         <button type="button" class="carousel-prev" onclick="prev()">
           <img src="./images/flecha1.png" alt="">
         </button>
@@ -116,42 +89,10 @@
         </div>
       </div>
       <div class="carrousel2" item-display-d="4" item-display-t="3"  item-display-m="1">
-        <div class="slider-width2">
-          <div class="container-product2">
-            <div class="image">
-              <img src="./images/rtx 3080.jpg" alt="rtx 3080">
-            </div>
-            <div class="description">
-              <p class="text">RTX 3080 12G</p>
-              <p class="text">250000$</p>
-            </div>
-          </div>
-          <div class="container-product2">
-            <div class="image">
-              <img src="./images/rtx 3080.jpg" alt="rtx 3080">
-            </div>
-            <div class="description">
-              <p class="text">RTX 3080 12G</p>
-              <p class="text">250000$</p>
-            </div>
-          </div>
-          <div class="container-product2">
-            <div class="image">
-              <img src="./images/rtx 3080.jpg" alt="rtx 3080">
-            </div>
-            <div class="description">
-              <p class="text">RTX 3080 12G</p>
-              <p class="text">250000$</p>
-            </div>
-          </div>
-        </div>
-        <button type="button" class="carousel-prev2" onclick="prev2()">
-          <img src="./images/flecha1.png" alt="">
-        </button>
-        <button type="button" class="carousel-next2" onclick="next2()">
-          <img src="./images/flecha2.png" alt="">
-        </button>
-      </div>
+        <div class="slider-width2"></div>  
+        <button type="button" class="carousel-prev2" onclick="prev2()"><img src="./images/flecha1.png" alt=""></button>
+        <button type="button" class="carousel-next2" onclick="next2()"><img src="./images/flecha2.png" alt=""></button>
+      
     </main>
     <footer>
       <div class="foot">
