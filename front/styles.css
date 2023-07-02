@@ -69,11 +69,12 @@ body{
     z-index: 2;
  }
  .popup-content {
+  display: flex;
   position: fixed;
-  max-width: 95%;
+  flex-direction: column;
+  width: 90%;
   height: 80%;
   background-color: white;
-  padding: 10px;
   color: rgb(43, 52, 130);
   top: 90px;
 }
@@ -91,6 +92,45 @@ body{
   color: rgb(231, 73, 73);
   z-index: 3;
 }
+.poptop{
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #E6E9F2;
+  padding: 10px;
+  font-size: 25px;
+  margin: 0px;
+}
+.text-product{
+  padding: 10px;
+  color: rgba(0, 0, 0, 0.75);
+  font-size: 32px;
+}
+.producto-container{
+  display: flex;
+  color: rgba(0, 0, 0, 0.75);
+  padding: 10px;
+  
+  border-top: 1px solid rgba(0, 0, 0, 0.75);
+  border-bottom:1px solid rgba(0, 0, 0, 0.75);
+  justify-content: space-between;
+}
+.producto-container p{
+  color: rgba(0, 0, 0, 0.75);
+  align-items: center;
+  margin: 0px;
+}
+.producto-container input{
+  width: 20px;
+}
+.eliminar{
+  background-color: #782424;
+  color: #E6E9F2;
+  border-radius: 100%;
+  padding: 3px;
+  width: 30px;
+  border: 0px;
+
+}
  /*main*/
 .hot-sale{
     display: flex;
@@ -106,6 +146,7 @@ body{
   height: 64px;
 }
 .carrousel,.carrousel2 {
+  overflow-y: hidden;
     position: relative;
     overflow-x: hidden;
     height: 400px;

@@ -227,10 +227,12 @@ function openPop(){
   const closeButton = document.createElement('button');
   const popupTop =document.createElement('p');
   popupTop.classList.add('poptop');
+  popupTop.textContent="Tu carrito";
   const productContent = document.createElement('div');
   productContent.classList.add('product-content')
   const textProduct = document.createElement('p');
   textProduct.classList.add('text-product')
+  textProduct.textContent="Productos"
   closeButton.classList.add('popup-close');
   closeButton.innerHTML = 'CERRAR';
   closeButton.addEventListener('click', () => {
@@ -246,19 +248,25 @@ function openPop(){
     // Crear elementos para cada producto
     const productoContainer = document.createElement('div');
     productoContainer.classList.add('producto-container');
-  
     const nombreProducto = document.createElement('p');
     nombreProducto.textContent = producto.nombre;
-  
     const precioProducto = document.createElement('p');
     precioProducto.textContent = `$${producto.precio}`;
-  
     const cantidadProducto = document.createElement('input');
     cantidadProducto.type = 'number';
-    cantidadProducto.value = producto.cantidad;
+    cantidadProducto.value = '';
+    const productoExistente = carro.find((p) => p.id === producto.id);
+    if (productoExistente) {
+      cantidadProducto.value = productoExistente.cantidad;
+    } else {
+      cantidadProducto.value = '';
+    }
+
+
   
     const eliminarProducto = document.createElement('button');
-    eliminarProducto.textContent = 'Eliminar';
+    eliminarProducto.classList.add('eliminar');
+    eliminarProducto.textContent = 'X';
     eliminarProducto.addEventListener('click', () => {
       // Lógica para eliminar el producto del carrito
       eliminarProductoCarrito(index);
@@ -269,8 +277,8 @@ function openPop(){
   
     // Agregar los elementos al contenedor del producto
     productoContainer.appendChild(nombreProducto);
-    productoContainer.appendChild(precioProducto);
     productoContainer.appendChild(cantidadProducto);
+    productoContainer.appendChild(precioProducto);
     productoContainer.appendChild(eliminarProducto);
   
     // Agregar el contenedor del producto al contenedor principal
