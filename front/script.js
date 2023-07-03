@@ -20,9 +20,73 @@ const productos = [
     precio: "$250000",
     id:3,
     cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:4,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:5,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:6,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:7,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:8,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:9,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:10,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:11,
+    cantidad:1
+  },
+  {
+    nombre: "RTX 3080 12G",
+    imagenSrc: "./images/rtx 3080.jpg",
+    precio: "$250000",
+    id:12,
+    cantidad:1
   }
 ];
 const carro = [];
+
 const sliderWidth =document.querySelector(".slider-width");
 const sliderWidth2 =document.querySelector(".slider-width2");
 productos.forEach((producto) => {
@@ -83,25 +147,37 @@ productos.forEach((producto) => {
     const nombreProducto = producto.nombre;
     const precioProducto = producto.precio;
     const idProducto = producto.id;
-    const cantidadProducto = producto.cantidad;
     
-    // Agregar el producto al carrito
-    carro.push({ nombre: nombreProducto, precio: precioProducto,id:idProducto,cantidad:cantidadProducto});
-    
-    // Mostrar una confirmación o realizar otras acciones
-    console.log("Producto agregado al carrito:", nombreProducto);
+    // Verificar si el producto ya está en el carrito
+    const productoExistente = carro.find((item) => item.id === idProducto);
+    if (productoExistente) {
+      // Si el producto ya está en el carrito, incrementar la cantidad
+      productoExistente.cantidad += 1;
+      console.log("Cantidad actualizada:", productoExistente.cantidad);
+    } else {
+      // Si el producto no está en el carrito, agregarlo
+      const cantidadProducto = producto.cantidad;
+      carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto });
+      console.log("Producto agregado al carrito:", nombreProducto);
+    }
   });
   descriptionBtn2.addEventListener("click", () => {
     const nombreProducto = producto.nombre;
     const precioProducto = producto.precio;
     const idProducto = producto.id;
-    const cantidadProducto = producto.cantidad;
     
-    // Agregar el producto al carrito
-    carro.push({ nombre: nombreProducto, precio: precioProducto,id:idProducto,cantidad:cantidadProducto});
-    
-    // Mostrar una confirmación o realizar otras acciones
-    console.log("Producto agregado al carrito:", nombreProducto);
+    // Verificar si el producto ya está en el carrito
+    const productoExistente = carro.find((item) => item.id === idProducto);
+    if (productoExistente) {
+      // Si el producto ya está en el carrito, incrementar la cantidad
+      productoExistente.cantidad += 1;
+      console.log("Cantidad actualizada:", productoExistente.cantidad);
+    } else {
+      // Si el producto no está en el carrito, agregarlo
+      const cantidadProducto = producto.cantidad;
+      carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto });
+      console.log("Producto agregado al carrito:", nombreProducto);
+    }
   });
 });
 
@@ -246,12 +322,32 @@ function openPop(){
   closeButton.addEventListener('click', () => {
     popupContainer.remove();
   });
+  const totalContainer=document.createElement('div');
+    totalContainer.classList.add('contenedor-total');
+    const valorTotal = carro.reduce((total, producto) => {
+      const precio = parseFloat(producto.precio.replace('$', ''));
+      const cantidad = producto.cantidad;
+      return total + (precio * cantidad);
+    }, 0);
+    const totalText = document.createElement('p');
+    totalText.textContent = `Total: $${valorTotal.toFixed(2)}`;
+    function actualizarValorTotal() {
+      const valorTotal = carro.reduce((total, producto) => {
+        const precio = parseFloat(producto.precio.replace('$', ''));
+        const cantidad = producto.cantidad;
+        return total + (precio * cantidad);
+      }, 0);
+    
+      totalText.textContent = `Total: $${valorTotal.toFixed(2)}`;
+    }
   pop.appendChild(popupContainer);
-  popupContainer.appendChild(closeButton);
   popupContainer.appendChild(popupContent);
   popupContent.appendChild(popupTop);
+  popupTop.appendChild(closeButton);
   popupContent.appendChild(productContent);
   productContent.appendChild(textProduct);
+  popupContent.appendChild(totalContainer);
+  totalContainer.appendChild(totalText);
   carro.forEach((producto,index) => {
     // Crear elementos para cada producto
     const productoContainer = document.createElement('div');
@@ -267,20 +363,24 @@ function openPop(){
     cantidadProducto.setAttribute('type', 'number');
     cantidadProducto.value = producto.cantidad.toString();
     const botonAumentar = document.createElement('button');
+    botonAumentar.classList.add('botones');
     botonAumentar.textContent = '+';
     const botonDisminuir = document.createElement('button');
+    botonDisminuir.classList.add('botones');
     botonDisminuir.textContent = '-';
     botonAumentar.addEventListener('click', () => {
       producto.cantidad += 1;
       cantidadProducto.value = producto.cantidad.toString();
       precioProducto.textContent = `$${(parseFloat(producto.precio.toString().replace('$', '')) * producto.cantidad).toFixed(2)}`;
+      actualizarValorTotal(); // Actualizar el valor total al aumentar la cantidad
     });
-    
+  
     botonDisminuir.addEventListener('click', () => {
       if (producto.cantidad > 1) {
         producto.cantidad -= 1;
         cantidadProducto.value = producto.cantidad.toString();
         precioProducto.textContent = `$${(parseFloat(producto.precio.toString().replace('$', '')) * producto.cantidad).toFixed(2)}`;
+        actualizarValorTotal(); // Actualizar el valor total al disminuir la cantidad
       }
     });
     
@@ -293,11 +393,14 @@ function openPop(){
     eliminarProducto.addEventListener('click', () => {
       // Lógica para eliminar el producto del carrito
       eliminarProductoCarrito(index);
+      actualizarValorTotal();
       // ...
       // También puedes eliminar el elemento del DOM si lo deseas
       productoContainer.remove();
     });
     // Agregar los elementos al contenedor del producto
+    
+    
     productoContainer.appendChild(nombreProducto);
     productoContainer.appendChild(precioProducto);
     cantidadContainer.appendChild(botonDisminuir);
@@ -305,6 +408,8 @@ function openPop(){
     cantidadContainer.appendChild(botonAumentar);
     productoContainer.appendChild(cantidadContainer);
     productoContainer.appendChild(eliminarProducto);
+
+    
   
     // Agregar el contenedor del producto al contenedor principal
     productContent.appendChild(productoContainer);
