@@ -3,20 +3,23 @@ const productos = [
   {
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
-    precio: "250000$",
-    id:1
+    precio: "$250000",
+    id:1,
+    cantidad:1
   },
   {
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
-    precio: "250000$",
-    id:2
+    precio: "$250000",
+    id:2,
+    cantidad:1
   },
   {
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
-    precio: "250000$",
-    id:3
+    precio: "$250000",
+    id:3,
+    cantidad:1
   }
 ];
 const carro = [];
@@ -79,9 +82,11 @@ productos.forEach((producto) => {
   descriptionBtn.addEventListener("click", () => {
     const nombreProducto = producto.nombre;
     const precioProducto = producto.precio;
+    const idProducto = producto.id;
+    const cantidadProducto = producto.cantidad;
     
     // Agregar el producto al carrito
-    carro.push({ nombre: nombreProducto, precio: precioProducto });
+    carro.push({ nombre: nombreProducto, precio: precioProducto,id:idProducto,cantidad:cantidadProducto});
     
     // Mostrar una confirmación o realizar otras acciones
     console.log("Producto agregado al carrito:", nombreProducto);
@@ -89,9 +94,11 @@ productos.forEach((producto) => {
   descriptionBtn2.addEventListener("click", () => {
     const nombreProducto = producto.nombre;
     const precioProducto = producto.precio;
+    const idProducto = producto.id;
+    const cantidadProducto = producto.cantidad;
     
     // Agregar el producto al carrito
-    carro.push({ nombre: nombreProducto, precio: precioProducto });
+    carro.push({ nombre: nombreProducto, precio: precioProducto,id:idProducto,cantidad:cantidadProducto});
     
     // Mostrar una confirmación o realizar otras acciones
     console.log("Producto agregado al carrito:", nombreProducto);
@@ -216,6 +223,7 @@ function eliminarProductoCarrito(index) {
   // Eliminar el producto del array carrito utilizando splice()
   carro.splice(index, 1);
 }
+
 const carrito=document.getElementById('carrito');
 carrito.addEventListener('click', openPop);
 const pop=document.getElementById('pop');
@@ -251,17 +259,32 @@ function openPop(){
     const nombreProducto = document.createElement('p');
     nombreProducto.textContent = producto.nombre;
     const precioProducto = document.createElement('p');
-    precioProducto.textContent = `$${producto.precio}`;
-    const cantidadProducto = document.createElement('input');
-    cantidadProducto.type = 'number';
-    cantidadProducto.value = '';
-    const productoExistente = carro.find((p) => p.id === producto.id);
-    if (productoExistente) {
-      cantidadProducto.value = productoExistente.cantidad;
-    } else {
-      cantidadProducto.value = '';
-    }
+    precioProducto.textContent = `$${(parseFloat(producto.precio.replace('$', '')) * producto.cantidad).toFixed(2)}`;
 
+    const cantidadContainer = document.createElement('div');
+    cantidadContainer.classList.add('cantidad-container');
+    const cantidadProducto = document.createElement('input');
+    cantidadProducto.setAttribute('type', 'number');
+    cantidadProducto.value = producto.cantidad.toString();
+    const botonAumentar = document.createElement('button');
+    botonAumentar.textContent = '+';
+    const botonDisminuir = document.createElement('button');
+    botonDisminuir.textContent = '-';
+    botonAumentar.addEventListener('click', () => {
+      producto.cantidad += 1;
+      cantidadProducto.value = producto.cantidad.toString();
+      precioProducto.textContent = `$${(parseFloat(producto.precio.toString().replace('$', '')) * producto.cantidad).toFixed(2)}`;
+    });
+    
+    botonDisminuir.addEventListener('click', () => {
+      if (producto.cantidad > 1) {
+        producto.cantidad -= 1;
+        cantidadProducto.value = producto.cantidad.toString();
+        precioProducto.textContent = `$${(parseFloat(producto.precio.toString().replace('$', '')) * producto.cantidad).toFixed(2)}`;
+      }
+    });
+    
+    
 
   
     const eliminarProducto = document.createElement('button');
@@ -274,11 +297,13 @@ function openPop(){
       // También puedes eliminar el elemento del DOM si lo deseas
       productoContainer.remove();
     });
-  
     // Agregar los elementos al contenedor del producto
     productoContainer.appendChild(nombreProducto);
-    productoContainer.appendChild(cantidadProducto);
     productoContainer.appendChild(precioProducto);
+    cantidadContainer.appendChild(botonDisminuir);
+    cantidadContainer.appendChild(cantidadProducto);
+    cantidadContainer.appendChild(botonAumentar);
+    productoContainer.appendChild(cantidadContainer);
     productoContainer.appendChild(eliminarProducto);
   
     // Agregar el contenedor del producto al contenedor principal
