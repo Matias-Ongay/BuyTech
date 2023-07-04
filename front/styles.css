@@ -262,15 +262,37 @@ body{
   }
   .icons{
     flex-direction: row;
-    
   }
   .icons img{
     width: 64px;
-    
   }
   .icons a{
     margin-right: 10px;
   }
+  /*Seccion Productos*/
+  .productos-main{
+    display: flex;
+    max-height: 200px;
+  }
+  .productos-main img{
+    width: 100%;
+  }
+  .search{
+    display: flex;
+    justify-content: center;
+    
+  }
+  .search input{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    border: 0px;
+    border-radius: 10px;
+    padding:5px;
+    margin: 5px;
+    position: relative;
+    color: #E6E9F2;
+  }
+  
   
   
   
