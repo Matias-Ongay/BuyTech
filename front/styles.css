@@ -292,8 +292,30 @@ body{
     position: relative;
     color: #E6E9F2;
   }
-  
-  
-  
-  
+  .productos{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .productos-listado{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .productos-listado .container-product{
+    width: 170px;
+  }
+  .productos-listado .container-product .description{
+    margin-top: 0px;
+    font-size: 20px;
+  }
+  .clasificaciones-lista {
+    display: none;
+  }
+  .clasificaciones-container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 5px;
+  }
   

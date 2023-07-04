@@ -104,7 +104,8 @@ function cargarCarrito() {
   }
 }
 
-
+const clasificacionesBtn = document.querySelector('.clasificaciones-btn');
+      
 const sliderWidth =document.querySelector(".slider-width");
 const sliderWidth2 =document.querySelector(".slider-width2");
 const listadoProductos=document.querySelector(".productos-listado");
@@ -143,6 +144,8 @@ productos.forEach((producto) => {
     if (isDifferentPage) {
       console.log("PRODUCTOS")
       listadoProductos.appendChild(containerProduct);
+      
+
     }else{
       console.log("ELSE")
       sliderWidth.appendChild(containerProduct);
@@ -330,12 +333,21 @@ function openPop(){
     productoContainer.appendChild(cantidadContainer);
     productoContainer.appendChild(eliminarProducto);
 
-    
-  
     // Agregar el contenedor del producto al contenedor principal
     productContent.appendChild(productoContainer);
   });
 }
+
+//Clasificacion de productos
+if (isDifferentPage){
+  const clasificacionesLista = document.querySelector('.clasificaciones-lista');
+      clasificacionesBtn.addEventListener('click', () => {
+        clasificacionesLista.style.display = (clasificacionesLista.style.display === 'block') ? 'none' : 'block';
+      });
+}
+
+
+
 /*productos por la API*/ 
 let products = [];
 
