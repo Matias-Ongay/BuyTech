@@ -317,5 +317,25 @@ body{
     justify-content: center;
     flex-direction: column;
     margin: 5px;
+    font-size: 25px;
+    
+  }
+  .clasificaciones-lista{
+    margin: 0px;
+    padding: 0px;
+    
+  }
+  .clasificaciones-btn{
+    color: #782424;
+    text-align: left;
+    border: 0px;
+    
+  }
+  .clasificacion{
+    text-decoration: none;
+    list-style-type: none;
+    display: flex;
+    justify-content: left;
+    border-top:solid rgba(0, 0, 0, 0.75) 1px ; 
   }
   

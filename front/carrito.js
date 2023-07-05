@@ -1,9 +1,10 @@
 /*productos momentanes en el front */
 const productos = [
   {
-    nombre: "RTX 3080 12G",
+    nombre: "AMD",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Placa de video",
     id:1,
     cantidad:1
   },
@@ -11,6 +12,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Placa de video",
     id:2,
     cantidad:1
   },
@@ -18,6 +20,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Placa de video",
     id:3,
     cantidad:1
   },
@@ -25,6 +28,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Placa de video",
     id:4,
     cantidad:1
   },
@@ -32,6 +36,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Procesadores",
     id:5,
     cantidad:1
   },
@@ -39,6 +44,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Memorias Ram",
     id:6,
     cantidad:1
   },
@@ -46,6 +52,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Memorias Ram",
     id:7,
     cantidad:1
   },
@@ -53,6 +60,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Almacenamiento",
     id:8,
     cantidad:1
   },
@@ -60,6 +68,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Almacenamiento",
     id:9,
     cantidad:1
   },
@@ -67,6 +76,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Fuente",
     id:10,
     cantidad:1
   },
@@ -74,6 +84,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Fuente",
     id:11,
     cantidad:1
   },
@@ -81,6 +92,7 @@ const productos = [
     nombre: "RTX 3080 12G",
     imagenSrc: "./images/rtx 3080.jpg",
     precio: "$250000",
+    categoria:"Gabinete",
     id:12,
     cantidad:1
   }
@@ -103,116 +115,241 @@ function cargarCarrito() {
     carro = JSON.parse(carritoGuardado);
   }
 }
-
+//search bar
+function limpiarProductos(){
+  while (listadoProductos.firstChild) {
+    listadoProductos.firstChild.remove();
+  }
+}
+const inputBusqueda = document.querySelector('.search input');
+inputBusqueda.addEventListener('keyup', function(event) {
+  if (event.keyCode === 13) {
+    buscarProductos();
+  }
+});
 const clasificacionesBtn = document.querySelector('.clasificaciones-btn');
-      
+function buscarProductos() {
+  limpiarProductos();
+  const valorBusqueda = inputBusqueda.value.trim().toLowerCase();
+  const productosFiltrados = productos.filter(producto =>
+    producto.nombre.toLowerCase().includes(valorBusqueda)
+  );
+  if(isDifferentPage && valorBusqueda.length > 0){
+    mostrarProductos(productosFiltrados);
+  }else{
+    mostrarProductos(productos);
+  }
+  
+}
+
+//creacion de los contenedores de productos      
 const sliderWidth =document.querySelector(".slider-width");
 const sliderWidth2 =document.querySelector(".slider-width2");
 const listadoProductos=document.querySelector(".productos-listado");
-productos.forEach((producto) => {
- 
-    const containerProduct = document.createElement("div");
-    containerProduct.className = "container-product";
-    const image = document.createElement("div");
-    image.className = "image";
-    const img = document.createElement("img");
-    img.src = producto.imagenSrc;
-    img.alt = producto.nombre;
-    image.appendChild(img);
-  
-    const descriptionBtn = document.createElement("button");
-    descriptionBtn.className = "description";
-    const p1 = document.createElement("p");
-    p1.className = "text";
-    p1.textContent = producto.nombre;
-    const p2 = document.createElement("p");
-    p2.className = "text";
-    p2.textContent = producto.precio;
-    descriptionBtn.appendChild(p1);
-    descriptionBtn.appendChild(p2);
-  
-    containerProduct.appendChild(image);
-    containerProduct.appendChild(descriptionBtn);
-    const descriptionBtn2 = document.createElement("button");
-      descriptionBtn2.className = "description";
-      const p12 = document.createElement("p");
-      p12.className = "text";
-      p12.textContent = producto.nombre;
-      const p22 = document.createElement("p");
-      p22.className = "text";
-      p22.textContent = producto.precio;
-    if (isDifferentPage) {
-      console.log("PRODUCTOS")
-      listadoProductos.appendChild(containerProduct);
-      
+buscarProductos();
+function mostrarProductos(productos) {
+  const valorBusqueda = inputBusqueda.value.trim().toLowerCase();
 
-    }else{
-      console.log("ELSE")
-      sliderWidth.appendChild(containerProduct);
-      const containerProduct2 = document.createElement("div");
-      containerProduct2.className = "container-product2";
+
+  if(isDifferentPage && valorBusqueda.length > 0){
+    const productosFiltrados = productos.filter(producto =>
+      producto.nombre.toLowerCase().includes(valorBusqueda)
+    );
+    productosFiltrados.forEach((producto)=>{
+      const containerProduct = document.createElement("div");
+      containerProduct.className = "container-product";
+      const image = document.createElement("div");
+      image.className = "image";
+      const img = document.createElement("img");
+      img.src = producto.imagenSrc;
+      img.alt = producto.nombre;
+      image.appendChild(img);
     
-      const image2 = document.createElement("div");
-      image2.className = "image";
-      const img2 = document.createElement("img");
-      img2.src = producto.imagenSrc;
-      img2.alt = producto.nombre;
-      image2.appendChild(img2);
+      const descriptionBtn = document.createElement("button");
+      descriptionBtn.className = "description";
+      const p1 = document.createElement("p");
+      p1.className = "text";
+      p1.textContent = producto.nombre;
+      const p2 = document.createElement("p");
+      p2.className = "text";
+      p2.textContent = producto.precio;
+      descriptionBtn.appendChild(p1);
+      descriptionBtn.appendChild(p2);
     
+      containerProduct.appendChild(image);
+      containerProduct.appendChild(descriptionBtn);
+      const descriptionBtn2 = document.createElement("button");
+        descriptionBtn2.className = "description";
+        const p12 = document.createElement("p");
+        p12.className = "text";
+        p12.textContent = producto.nombre;
+        const p22 = document.createElement("p");
+        p22.className = "text";
+        p22.textContent = producto.precio;
+      if (isDifferentPage) {
+        console.log("PRODUCTOS")
+        listadoProductos.appendChild(containerProduct);
+        
+  
+      }else{
+        console.log("ELSE")
+        sliderWidth.appendChild(containerProduct);
+        const containerProduct2 = document.createElement("div");
+        containerProduct2.className = "container-product2";
       
-      descriptionBtn2.appendChild(p12);
-      descriptionBtn2.appendChild(p22);
-    
-      containerProduct2.appendChild(image2);
-      containerProduct2.appendChild(descriptionBtn2);
-      sliderWidth2.appendChild(containerProduct2);
-  
-    }
-   
-  
-  
-    
-    
-    /*Evento para el carrito */
-    descriptionBtn.addEventListener("click", () => {
-      const nombreProducto = producto.nombre;
-      const precioProducto = producto.precio;
-      const idProducto = producto.id;
+        const image2 = document.createElement("div");
+        image2.className = "image";
+        const img2 = document.createElement("img");
+        img2.src = producto.imagenSrc;
+        img2.alt = producto.nombre;
+        image2.appendChild(img2);
       
-      // Verificar si el producto ya está en el carrito
-      const productoExistente = carro.find((item) => item.id === idProducto);
-      if (productoExistente) {
-        // Si el producto ya está en el carrito, incrementar la cantidad
-        productoExistente.cantidad += 1;
-        console.log("Cantidad actualizada:", productoExistente.cantidad);
-      } else {
-        // Si el producto no está en el carrito, agregarlo
-        const cantidadProducto = producto.cantidad;
-        carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto });
-        console.log("Producto agregado al carrito:", nombreProducto);
+        
+        descriptionBtn2.appendChild(p12);
+        descriptionBtn2.appendChild(p22);
+      
+        containerProduct2.appendChild(image2);
+        containerProduct2.appendChild(descriptionBtn2);
+        sliderWidth2.appendChild(containerProduct2);
+    
       }
-      guardarCarrito();
-    });
-    descriptionBtn2.addEventListener("click", () => {
-      const nombreProducto = producto.nombre;
-      const precioProducto = producto.precio;
-      const idProducto = producto.id;
+     
+    
+    
       
-      // Verificar si el producto ya está en el carrito
-      const productoExistente = carro.find((item) => item.id === idProducto);
-      if (productoExistente) {
-        // Si el producto ya está en el carrito, incrementar la cantidad
-        productoExistente.cantidad += 1;
-        console.log("Cantidad actualizada:", productoExistente.cantidad);
-      } else {
-        // Si el producto no está en el carrito, agregarlo
-        const cantidadProducto = producto.cantidad;
-        carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto });
-        console.log("Producto agregado al carrito:", nombreProducto);
+      
+      /*Evento para el carrito */
+      descriptionBtn.addEventListener("click", () => {
+        const nombreProducto = producto.nombre;
+        const precioProducto = producto.precio;
+        const idProducto = producto.id;
+        const categorias=producto.categoria;
+        
+        // Verificar si el producto ya está en el carrito
+        const productoExistente = carro.find((item) => item.id === idProducto);
+        if (productoExistente) {
+          // Si el producto ya está en el carrito, incrementar la cantidad
+          productoExistente.cantidad += 1;
+          console.log("Cantidad actualizada:", productoExistente.cantidad);
+        } else {
+          // Si el producto no está en el carrito, agregarlo
+          const cantidadProducto = producto.cantidad;
+          carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto,categorias:categorias });
+          console.log("Producto agregado al carrito:", nombreProducto);
+        }
+        guardarCarrito();
+      });
+    })
+  }else {
+    productos.forEach((producto) => {
+ 
+      const containerProduct = document.createElement("div");
+      containerProduct.className = "container-product";
+      const image = document.createElement("div");
+      image.className = "image";
+      const img = document.createElement("img");
+      img.src = producto.imagenSrc;
+      img.alt = producto.nombre;
+      image.appendChild(img);
+    
+      const descriptionBtn = document.createElement("button");
+      descriptionBtn.className = "description";
+      const p1 = document.createElement("p");
+      p1.className = "text";
+      p1.textContent = producto.nombre;
+      const p2 = document.createElement("p");
+      p2.className = "text";
+      p2.textContent = producto.precio;
+      descriptionBtn.appendChild(p1);
+      descriptionBtn.appendChild(p2);
+    
+      containerProduct.appendChild(image);
+      containerProduct.appendChild(descriptionBtn);
+      const descriptionBtn2 = document.createElement("button");
+        descriptionBtn2.className = "description";
+        const p12 = document.createElement("p");
+        p12.className = "text";
+        p12.textContent = producto.nombre;
+        const p22 = document.createElement("p");
+        p22.className = "text";
+        p22.textContent = producto.precio;
+      if (isDifferentPage) {
+        console.log("PRODUCTOS")
+        listadoProductos.appendChild(containerProduct);
+        
+  
+      }else{
+        console.log("ELSE")
+        sliderWidth.appendChild(containerProduct);
+        const containerProduct2 = document.createElement("div");
+        containerProduct2.className = "container-product2";
+      
+        const image2 = document.createElement("div");
+        image2.className = "image";
+        const img2 = document.createElement("img");
+        img2.src = producto.imagenSrc;
+        img2.alt = producto.nombre;
+        image2.appendChild(img2);
+      
+        
+        descriptionBtn2.appendChild(p12);
+        descriptionBtn2.appendChild(p22);
+      
+        containerProduct2.appendChild(image2);
+        containerProduct2.appendChild(descriptionBtn2);
+        sliderWidth2.appendChild(containerProduct2);
+    
       }
-      guardarCarrito();
+     
+    
+    
+      
+      
+      /*Evento para el carrito */
+      descriptionBtn.addEventListener("click", () => {
+        const nombreProducto = producto.nombre;
+        const precioProducto = producto.precio;
+        const idProducto = producto.id;
+        const categorias=producto.categoria;
+        
+        // Verificar si el producto ya está en el carrito
+        const productoExistente = carro.find((item) => item.id === idProducto);
+        if (productoExistente) {
+          // Si el producto ya está en el carrito, incrementar la cantidad
+          productoExistente.cantidad += 1;
+          console.log("Cantidad actualizada:", productoExistente.cantidad);
+        } else {
+          // Si el producto no está en el carrito, agregarlo
+          const cantidadProducto = producto.cantidad;
+          carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto,categorias:categorias });
+          console.log("Producto agregado al carrito:", nombreProducto);
+        }
+        guardarCarrito();
+      });
+      descriptionBtn2.addEventListener("click", () => {
+        const nombreProducto = producto.nombre;
+        const precioProducto = producto.precio;
+        const idProducto = producto.id;
+        const categorias=producto.categoria;
+        
+        // Verificar si el producto ya está en el carrito
+        const productoExistente = carro.find((item) => item.id === idProducto);
+        if (productoExistente) {
+          // Si el producto ya está en el carrito, incrementar la cantidad
+          productoExistente.cantidad += 1;
+          console.log("Cantidad actualizada:", productoExistente.cantidad);
+        } else {
+          // Si el producto no está en el carrito, agregarlo
+          const cantidadProducto = producto.cantidad;
+          carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto,categorias:categorias });
+          console.log("Producto agregado al carrito:", nombreProducto);
+        }
+        guardarCarrito();
+      });
     });
-  });
+  
+  }
+}
 
 /*carrito pop up */
 
@@ -323,8 +460,6 @@ function openPop(){
       productoContainer.remove();
     });
     // Agregar los elementos al contenedor del producto
-    
-    
     productoContainer.appendChild(nombreProducto);
     productoContainer.appendChild(precioProducto);
     cantidadContainer.appendChild(botonDisminuir);
@@ -337,17 +472,13 @@ function openPop(){
     productContent.appendChild(productoContainer);
   });
 }
-
-//Clasificacion de productos
+//Carrito para toda la pagina
 if (isDifferentPage){
   const clasificacionesLista = document.querySelector('.clasificaciones-lista');
       clasificacionesBtn.addEventListener('click', () => {
         clasificacionesLista.style.display = (clasificacionesLista.style.display === 'block') ? 'none' : 'block';
       });
 }
-
-
-
 /*productos por la API*/ 
 let products = [];
 
