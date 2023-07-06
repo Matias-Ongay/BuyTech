@@ -104,7 +104,8 @@ function guardarCarrito() {
 }
 console.log("Ruta actual:", window.location.pathname);
 let isDifferentPage = false; // Variable que indica si es una página diferente
-if (window.location.pathname !== "/front/") {
+console.log(isDifferentPage)
+if (window.location.pathname !== "/front/" && window.location.pathname !== "/front/index.html" ) {
   isDifferentPage = true;
   console.log("etro")
 }
@@ -116,41 +117,60 @@ function cargarCarrito() {
   }
 }
 //search bar
-function limpiarProductos(){
-  while (listadoProductos.firstChild) {
-    listadoProductos.firstChild.remove();
+function limpiarProductos() {
+  if (isDifferentPage) {
+    const listadoProductos = document.querySelector(".productos-listado");
+    while (listadoProductos.firstChild) {
+      listadoProductos.firstChild.remove();
+    }
   }
 }
-const inputBusqueda = document.querySelector('.search input');
-inputBusqueda.addEventListener('keyup', function(event) {
-  if (event.keyCode === 13) {
-    buscarProductos();
-  }
-});
+const clasificacionesLista = document.querySelector('.clasificaciones-lista');
+const inputBusqueda = document.querySelector('.search-input');
 const clasificacionesBtn = document.querySelector('.clasificaciones-btn');
-function buscarProductos() {
+if(isDifferentPage){
+  console.log("wtf")
+  
+  inputBusqueda.addEventListener('keyup', function(event) {
+    if (event.keyCode === 13) {
+      buscarProductos();
+    }
+  });
+  clasificacionesLista.addEventListener('click', (event) => {
+    if (event.target.classList.contains('clasificacion')) {
+      const categoriaSeleccionada = event.target.textContent;
+      buscarProductos(categoriaSeleccionada);
+     
+    }
+  });
+}
+function buscarProductos(categoriaSeleccionada){
+  
   limpiarProductos();
   const valorBusqueda = inputBusqueda.value.trim().toLowerCase();
-  const productosFiltrados = productos.filter(producto =>
-    producto.nombre.toLowerCase().includes(valorBusqueda)
-  );
-  if(isDifferentPage && valorBusqueda.length > 0){
-    mostrarProductos(productosFiltrados);
+  if(isDifferentPage  && categoriaSeleccionada){
+    console.log("categoriaSeleccionada")
+    const productosFiltrados = productos.filter(
+      (producto) =>
+        producto.nombre.toLowerCase().includes(valorBusqueda) &&
+        producto.categoria === categoriaSeleccionada
+    );
+    mostrarProductos(productosFiltrados,valorBusqueda);
+
+  }else if(isDifferentPage && valorBusqueda.length > 0){
+    mostrarProductos(productos,valorBusqueda);
+    console.log("Busqueda")
   }else{
     mostrarProductos(productos);
+    console.log("categoriaSeleccionada")
   }
-  
 }
-
 //creacion de los contenedores de productos      
 const sliderWidth =document.querySelector(".slider-width");
 const sliderWidth2 =document.querySelector(".slider-width2");
 const listadoProductos=document.querySelector(".productos-listado");
-buscarProductos();
-function mostrarProductos(productos) {
-  const valorBusqueda = inputBusqueda.value.trim().toLowerCase();
-
-
+mostrarProductos(productos)
+function mostrarProductos(productos, valorBusqueda = '') {
   if(isDifferentPage && valorBusqueda.length > 0){
     const productosFiltrados = productos.filter(producto =>
       producto.nombre.toLowerCase().includes(valorBusqueda)
@@ -164,7 +184,6 @@ function mostrarProductos(productos) {
       img.src = producto.imagenSrc;
       img.alt = producto.nombre;
       image.appendChild(img);
-    
       const descriptionBtn = document.createElement("button");
       descriptionBtn.className = "description";
       const p1 = document.createElement("p");
@@ -175,7 +194,6 @@ function mostrarProductos(productos) {
       p2.textContent = producto.precio;
       descriptionBtn.appendChild(p1);
       descriptionBtn.appendChild(p2);
-    
       containerProduct.appendChild(image);
       containerProduct.appendChild(descriptionBtn);
       const descriptionBtn2 = document.createElement("button");
@@ -189,35 +207,23 @@ function mostrarProductos(productos) {
       if (isDifferentPage) {
         console.log("PRODUCTOS")
         listadoProductos.appendChild(containerProduct);
-        
-  
       }else{
         console.log("ELSE")
         sliderWidth.appendChild(containerProduct);
         const containerProduct2 = document.createElement("div");
         containerProduct2.className = "container-product2";
-      
         const image2 = document.createElement("div");
         image2.className = "image";
         const img2 = document.createElement("img");
         img2.src = producto.imagenSrc;
         img2.alt = producto.nombre;
         image2.appendChild(img2);
-      
-        
         descriptionBtn2.appendChild(p12);
         descriptionBtn2.appendChild(p22);
-      
         containerProduct2.appendChild(image2);
         containerProduct2.appendChild(descriptionBtn2);
         sliderWidth2.appendChild(containerProduct2);
-    
       }
-     
-    
-    
-      
-      
       /*Evento para el carrito */
       descriptionBtn.addEventListener("click", () => {
         const nombreProducto = producto.nombre;
@@ -276,35 +282,25 @@ function mostrarProductos(productos) {
       if (isDifferentPage) {
         console.log("PRODUCTOS")
         listadoProductos.appendChild(containerProduct);
-        
-  
+
       }else{
         console.log("ELSE")
         sliderWidth.appendChild(containerProduct);
         const containerProduct2 = document.createElement("div");
         containerProduct2.className = "container-product2";
-      
         const image2 = document.createElement("div");
         image2.className = "image";
         const img2 = document.createElement("img");
         img2.src = producto.imagenSrc;
         img2.alt = producto.nombre;
         image2.appendChild(img2);
-      
-        
         descriptionBtn2.appendChild(p12);
         descriptionBtn2.appendChild(p22);
-      
         containerProduct2.appendChild(image2);
         containerProduct2.appendChild(descriptionBtn2);
         sliderWidth2.appendChild(containerProduct2);
     
       }
-     
-    
-    
-      
-      
       /*Evento para el carrito */
       descriptionBtn.addEventListener("click", () => {
         const nombreProducto = producto.nombre;
@@ -444,10 +440,6 @@ function openPop(){
         actualizarValorTotal(); // Actualizar el valor total al disminuir la cantidad
       }
     });
-    
-    
-
-  
     const eliminarProducto = document.createElement('button');
     eliminarProducto.classList.add('eliminar');
     eliminarProducto.textContent = 'X';
