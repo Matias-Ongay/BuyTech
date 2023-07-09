@@ -128,7 +128,7 @@ function limpiarProductos() {
 const clasificacionesLista = document.querySelector('.clasificaciones-lista');
 const inputBusqueda = document.querySelector('.search-input');
 const clasificacionesBtn = document.querySelector('.clasificaciones-btn');
-if(isDifferentPage){
+if(isDifferentPage && window.location.pathname !== "/front/nosotros.html"){
   console.log("wtf")
   
   inputBusqueda.addEventListener('keyup', function(event) {
@@ -279,11 +279,11 @@ function mostrarProductos(productos, valorBusqueda = '') {
         const p22 = document.createElement("p");
         p22.className = "text";
         p22.textContent = producto.precio;
-      if (isDifferentPage) {
+      if (isDifferentPage && window.location.pathname !== "/front/nosotros.html") {
         console.log("PRODUCTOS")
         listadoProductos.appendChild(containerProduct);
 
-      }else{
+      }else if( window.location.pathname !== "/front/nosotros.html"){
         console.log("ELSE")
         sliderWidth.appendChild(containerProduct);
         const containerProduct2 = document.createElement("div");
@@ -463,39 +463,30 @@ function openPop(){
     // Agregar el contenedor del producto al contenedor principal
     productContent.appendChild(productoContainer);
   });
+  //contenedores de pago y envios
+  const pago=document.createElement('div');
+  pago.classList.add('contenedor-pago');
+  const mp=document.createElement('button');
+  mp.classList.add('boton-pago');
+  const textoPago = document.createElement('p');
+  textoPago.textContent = 'Finalizar compra';
+  const imagenuala=document.createElement('img');
+  imagenuala.src='./images/pagar.png';
+  popupContent.appendChild(pago);
+  pago.appendChild(mp);
+  mp.appendChild(textoPago);
+  mp.appendChild(imagenuala);
 }
 //Carrito para toda la pagina
-if (isDifferentPage){
+if (isDifferentPage && window.location.pathname !== "/front/nosotros.html"){
   const clasificacionesLista = document.querySelector('.clasificaciones-lista');
       clasificacionesBtn.addEventListener('click', () => {
         clasificacionesLista.style.display = (clasificacionesLista.style.display === 'block') ? 'none' : 'block';
       });
 }
-/*productos por la API*/ 
-let products = [];
 
-function displayProducts(productList){
-    let productsHTML ='';
-    productList.forEach(element => {
-        productsHTML +=
-        `<div class="conteiner-product">
-            <div class="image">
-            <img src="${element.image}" alt="rtx 3080">
-            </div>
-            <div class="description">
-            <p class="text">${element.name}</p>
-            <P class="text">${element.price}$</P>
-            </div>
-
-        </div>`
-    });
-    document.getElementById('carousel-inner').innerHTML=productsHTML;
-
-}
 
 window.onload = async() => {
     cargarCarrito();
-    const productList =await (await fetch("/api/products")).json();
-    console.log(productList);
-    displayProducts(productList);
+    
 }

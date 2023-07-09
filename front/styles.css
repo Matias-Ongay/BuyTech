@@ -77,10 +77,9 @@ body{
   background-color: white;
   color: rgb(43, 52, 130);
   top: 90px;
+  overflow-y: auto;
 }
 .popup-close {
-   
-  
   border:0px;
   background-color:#782424;
   padding: 3px;
@@ -154,6 +153,32 @@ body{
 .contenedor-total p{
   margin: 0px;
   font-size: 32px;
+}
+.contenedor-pago{
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+.boton-pago{
+  display: flex;
+  background-color: #782424;
+  height: 80px;
+  border: 0px;
+  border-radius: 10px;
+  margin: 10px;
+  align-items: center;
+  justify-content: center;
+  color: #E6E9F2;
+  padding: 5px;
+}
+.boton-pago img{
+  width: 60px;
+  height: 60px;
+  
+}
+.boton-pago p{
+  font-size: 25px;
+  padding-right: 10px;
 }
  /*main*/
 .hot-sale{
@@ -338,4 +363,30 @@ body{
     justify-content: left;
     border-top:solid rgba(0, 0, 0, 0.75) 1px ; 
   }
-  
+  /*seccion nosotros*/
+  .main-card{
+    display: flex;
+    flex-direction: column;
+
+  }
+  .imagen-top{
+    width: 100%;
+  }
+  .imagen-top img{
+    width: 100%;
+  }
+  .text-down{
+    background-color: rgba(0, 0, 0, 0.75);
+    color: #E6E9F2;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+  }
+  .line2{
+    
+    width: 100%;
+  }
+  .line2 img{
+    width: 64px;
+    height: 64px;
+  } 
