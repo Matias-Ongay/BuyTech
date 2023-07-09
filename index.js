@@ -5,7 +5,7 @@ const port = 3000//puerto que se va a usar
 const productos = [
     {
       nombre: "AMD",
-      imagenSrc: "./images/rtx 3080.jpg",
+      imagenSrc: "images/rtx 3080.jpg",
       precio: "$250000",
       categoria:"Placa de video",
       id:1,
@@ -93,7 +93,7 @@ const productos = [
     },
     {
       nombre: "RTX 3080 12G",
-      imagenSrc: "./images/rtx 3080.jpg",
+      imagenSrc: "images/rtx 3080.jpg",
       precio: "$250000",
       categoria:"Gabinete",
       id:12,
@@ -101,7 +101,7 @@ const productos = [
     }
   ];
 //retorno de productos
-app.get('/api/products', (req, res) => {
+app.get('/api/productos', (req, res) => {
   res.send(productos)
 });
 

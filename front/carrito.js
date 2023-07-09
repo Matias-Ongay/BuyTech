@@ -1,102 +1,5 @@
 /*productos momentanes en el front */
-const productos = [
-  {
-    nombre: "AMD",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Placa de video",
-    id:1,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Placa de video",
-    id:2,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Placa de video",
-    id:3,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Placa de video",
-    id:4,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Procesadores",
-    id:5,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Memorias Ram",
-    id:6,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Memorias Ram",
-    id:7,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Almacenamiento",
-    id:8,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Almacenamiento",
-    id:9,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Fuente",
-    id:10,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Fuente",
-    id:11,
-    cantidad:1
-  },
-  {
-    nombre: "RTX 3080 12G",
-    imagenSrc: "./images/rtx 3080.jpg",
-    precio: "$250000",
-    categoria:"Gabinete",
-    id:12,
-    cantidad:1
-  }
-];
+
 let carro = [];
 // Función para guardar el carrito en el localStorage
 function guardarCarrito() {
@@ -105,7 +8,7 @@ function guardarCarrito() {
 console.log("Ruta actual:", window.location.pathname);
 let isDifferentPage = false; // Variable que indica si es una página diferente
 console.log(isDifferentPage)
-if (window.location.pathname !== "/front/" && window.location.pathname !== "/front/index.html" ) {
+if (window.location.pathname !== "/" && window.location.pathname !== "/front/index.html" ) {
   isDifferentPage = true;
   console.log("etro")
 }
@@ -169,7 +72,7 @@ function buscarProductos(categoriaSeleccionada){
 const sliderWidth =document.querySelector(".slider-width");
 const sliderWidth2 =document.querySelector(".slider-width2");
 const listadoProductos=document.querySelector(".productos-listado");
-mostrarProductos(productos)
+
 function mostrarProductos(productos, valorBusqueda = '') {
   if(isDifferentPage && valorBusqueda.length > 0){
     const productosFiltrados = productos.filter(producto =>
@@ -486,7 +389,11 @@ if (isDifferentPage && window.location.pathname !== "/front/nosotros.html"){
 }
 
 
+
 window.onload = async() => {
+  const productos=await(await fetch("/api/productos")).json();
     cargarCarrito();
+    mostrarProductos(productos);
+    console.log(productos)
     
 }
