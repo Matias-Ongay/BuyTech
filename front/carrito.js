@@ -8,7 +8,7 @@ function guardarCarrito() {
 console.log("Ruta actual:", window.location.pathname);
 let isDifferentPage = false; // Variable que indica si es una página diferente
 console.log(isDifferentPage)
-if (window.location.pathname !== "/" && window.location.pathname !== "/front/index.html" ) {
+if (window.location.pathname !== "/" && window.location.pathname !== "/index.html" ) {
   isDifferentPage = true;
   console.log("etro")
 }
@@ -31,7 +31,7 @@ function limpiarProductos() {
 const clasificacionesLista = document.querySelector('.clasificaciones-lista');
 const inputBusqueda = document.querySelector('.search-input');
 const clasificacionesBtn = document.querySelector('.clasificaciones-btn');
-if(isDifferentPage && window.location.pathname !== "/front/nosotros.html"){
+if(isDifferentPage && window.location.pathname !== "/nosotros.html"){
   console.log("wtf")
   
   inputBusqueda.addEventListener('keyup', function(event) {
@@ -182,11 +182,11 @@ function mostrarProductos(productos, valorBusqueda = '') {
         const p22 = document.createElement("p");
         p22.className = "text";
         p22.textContent = producto.precio;
-      if (isDifferentPage && window.location.pathname !== "/front/nosotros.html") {
+      if (isDifferentPage && window.location.pathname !== "/nosotros.html") {
         console.log("PRODUCTOS")
         listadoProductos.appendChild(containerProduct);
 
-      }else if( window.location.pathname !== "/front/nosotros.html"){
+      }else if( window.location.pathname !== "/nosotros.html"){
         console.log("ELSE")
         sliderWidth.appendChild(containerProduct);
         const containerProduct2 = document.createElement("div");
@@ -381,7 +381,7 @@ function openPop(){
   mp.appendChild(imagenuala);
 }
 //Carrito para toda la pagina
-if (isDifferentPage && window.location.pathname !== "/front/nosotros.html"){
+if (isDifferentPage && window.location.pathname !== "/nosotros.html"){
   const clasificacionesLista = document.querySelector('.clasificaciones-lista');
       clasificacionesBtn.addEventListener('click', () => {
         clasificacionesLista.style.display = (clasificacionesLista.style.display === 'block') ? 'none' : 'block';
@@ -395,5 +395,6 @@ window.onload = async() => {
     cargarCarrito();
     mostrarProductos(productos);
     console.log(productos)
-    
+    const productosCargadosEvent = new Event("productosCargados");
+    document.dispatchEvent(productosCargadosEvent);  
 }

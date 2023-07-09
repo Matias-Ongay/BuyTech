@@ -1,8 +1,8 @@
 
   
 /*carrusel de productos 1*/ 
-
-let count = 0;
+function inicializarCarrusel() {
+  let count = 0;
 let inc = 0;
 let margin = 0;
 let slider = document.querySelector(".slider-width"); 
@@ -28,7 +28,10 @@ itemSlide = Math.floor(items.length / itemDisplay) - 1;
 for (let i = 0; i < items.length; i++) {
   items[i].style.width = `${(screen.width / itemDisplay) - margin}px`;
 }
-
+const next1=document.querySelector('.carousel-next');
+next1.addEventListener('click', next);
+const prev1=document.querySelector('.carousel-prev');
+prev1.addEventListener('click', prev);
 function next() {
   if (inc !== itemSlide + itemLeft) {
     if (inc === itemSlide) {
@@ -84,7 +87,10 @@ itemSlide2 = Math.floor(items2.length / itemDisplay2) - 1;
 for (let i = 0; i < items2.length; i++) {
   items2[i].style.width = `${(screen.width / itemDisplay2) - margin2}px`;
 }
-
+const next22=document.querySelector('.carousel-next2');
+next22.addEventListener('click', next2);
+const prev22=document.querySelector('.carousel-prev2');
+prev22.addEventListener('click', prev2);
 function next2() {
   if (inc2 !== itemSlide2 + itemLeft2) {
     if (inc2 === itemSlide2) {
@@ -111,3 +117,9 @@ function prev2() {
   console.log(inc2);
   slider2.style.left = `${count2}px`;
 }
+
+}
+
+document.addEventListener("productosCargados", () => {
+  inicializarCarrusel();
+});
