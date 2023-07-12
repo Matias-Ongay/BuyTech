@@ -195,6 +195,7 @@ body{
   height: 64px;
 }
 .carrousel,.carrousel2 {
+  display: flex;
   overflow-y: hidden;
     position: relative;
     overflow-x: hidden;
@@ -223,8 +224,8 @@ body{
   }
   
   .image {
-    width: 100%;
-    max-width: 250px;
+    width: 250px;
+    height: 250px;
     margin-bottom: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -232,6 +233,7 @@ body{
   
   .image img {
     max-width: 100%;
+    max-height: 100%;
     border-radius: 10px;
   }
   
@@ -243,7 +245,7 @@ body{
     width: 100%;
     max-width: 250px;
     color: #e6e9f2;
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
     border:0px
@@ -329,10 +331,16 @@ body{
   }
   .productos-listado .container-product{
     width: 170px;
+    
+  }
+  .productos-listado .container-product .image{
+    height: 170px;
+    width: 170px;
+    
   }
   .productos-listado .container-product .description{
     margin-top: 0px;
-    font-size: 20px;
+    font-size: 14px;
   }
   .clasificaciones-lista {
     display: none;

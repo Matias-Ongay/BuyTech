@@ -31,43 +31,8 @@ function limpiarProductos() {
 const clasificacionesLista = document.querySelector('.clasificaciones-lista');
 const inputBusqueda = document.querySelector('.search-input');
 const clasificacionesBtn = document.querySelector('.clasificaciones-btn');
-if(isDifferentPage && window.location.pathname !== "/nosotros.html"){
-  console.log("wtf")
-  
-  inputBusqueda.addEventListener('keyup', function(event) {
-    if (event.keyCode === 13) {
-      buscarProductos();
-    }
-  });
-  clasificacionesLista.addEventListener('click', (event) => {
-    if (event.target.classList.contains('clasificacion')) {
-      const categoriaSeleccionada = event.target.textContent;
-      buscarProductos(categoriaSeleccionada);
-     
-    }
-  });
-}
-function buscarProductos(categoriaSeleccionada){
-  
-  limpiarProductos();
-  const valorBusqueda = inputBusqueda.value.trim().toLowerCase();
-  if(isDifferentPage  && categoriaSeleccionada){
-    console.log("categoriaSeleccionada")
-    const productosFiltrados = productos.filter(
-      (producto) =>
-        producto.nombre.toLowerCase().includes(valorBusqueda) &&
-        producto.categoria === categoriaSeleccionada
-    );
-    mostrarProductos(productosFiltrados,valorBusqueda);
 
-  }else if(isDifferentPage && valorBusqueda.length > 0){
-    mostrarProductos(productos,valorBusqueda);
-    console.log("Busqueda")
-  }else{
-    mostrarProductos(productos);
-    console.log("categoriaSeleccionada")
-  }
-}
+
 //creacion de los contenedores de productos      
 const sliderWidth =document.querySelector(".slider-width");
 const sliderWidth2 =document.querySelector(".slider-width2");
@@ -128,7 +93,15 @@ function mostrarProductos(productos, valorBusqueda = '') {
         sliderWidth2.appendChild(containerProduct2);
       }
       /*Evento para el carrito */
-      descriptionBtn.addEventListener("click", () => {
+      descriptionBtn.addEventListener("click", function(){
+        descriptionBtn.style.backgroundColor="rgba(0, 0, 0, 0.75)";
+        p1.innerHTML = 'Agregado';
+        p2.innerHTML='al carrito'
+        setTimeout(function() {
+          p1.textContent = producto.nombre;
+          p2.textContent=producto.precio;
+          descriptionBtn.style.backgroundColor="#782424"
+        }, 2000);
         const nombreProducto = producto.nombre;
         const precioProducto = producto.precio;
         const idProducto = producto.id;
@@ -205,7 +178,18 @@ function mostrarProductos(productos, valorBusqueda = '') {
     
       }
       /*Evento para el carrito */
-      descriptionBtn.addEventListener("click", () => {
+      descriptionBtn.addEventListener("click", function(){
+        
+        descriptionBtn.style.backgroundColor="rgba(0, 0, 0, 0.75)";
+        p1.innerHTML = 'Agregado';
+        p2.innerHTML='al carrito';
+        setTimeout(function() {
+          p1.textContent = producto.nombre;
+          p2.textContent=producto.precio;
+          descriptionBtn.style.backgroundColor="#782424"
+        
+          
+        }, 2000);
         const nombreProducto = producto.nombre;
         const precioProducto = producto.precio;
         const idProducto = producto.id;
@@ -225,7 +209,18 @@ function mostrarProductos(productos, valorBusqueda = '') {
         }
         guardarCarrito();
       });
-      descriptionBtn2.addEventListener("click", () => {
+      descriptionBtn2.addEventListener("click", function() {
+        descriptionBtn2.style.backgroundColor="rgba(0, 0, 0, 0.75)";
+        p12.innerHTML = 'Agregado';
+        p22.innerHTML='al carrito';
+        setTimeout(function() {
+          p12.textContent = producto.nombre;
+          p22.textContent=producto.precio;
+          descriptionBtn2.style.backgroundColor="#782424"
+        
+          
+        }, 2000);
+
         const nombreProducto = producto.nombre;
         const precioProducto = producto.precio;
         const idProducto = producto.id;
@@ -252,11 +247,27 @@ function mostrarProductos(productos, valorBusqueda = '') {
 
 /*carrito pop up */
 
-function eliminarProductoCarrito(index) {
-  // Eliminar el producto del array carrito utilizando splice()
-  carro.splice(index, 1);
-  guardarCarrito();
-
+function eliminarProductoCarrito(productoId) {
+   // Buscar el índice del producto en el carrito
+   const index = carro.findIndex(producto => producto.id === productoId);
+   // Verificar si el producto se encontró en el carrito
+   if (index !== -1) {
+     // Eliminar el producto del carrito utilizando splice()
+     carro.splice(index, 1);
+     console.log("Producto eliminado");
+     guardarCarrito();
+ 
+     // Actualizar los elementos del carrito en el DOM
+     const productosContainer = document.getElementsByClassName('producto-container');
+     for (let i = 0; i < productosContainer.length; i++) {
+       const productoContainer = productosContainer[i];
+       const id = productoContainer.getAttribute('data-producto-id');
+       if (id === productoId) {
+         productoContainer.remove();
+         break;
+       }
+     }
+   }
 }
 
 const carrito=document.getElementById('carrito');
@@ -347,12 +358,15 @@ function openPop(){
     eliminarProducto.classList.add('eliminar');
     eliminarProducto.textContent = 'X';
     eliminarProducto.addEventListener('click', () => {
+      const productoId = producto.id;
       // Lógica para eliminar el producto del carrito
-      eliminarProductoCarrito(index);
+      productoContainer.remove();
+
+      eliminarProductoCarrito(productoId);
       actualizarValorTotal();
       // ...
       // También puedes eliminar el elemento del DOM si lo deseas
-      productoContainer.remove();
+      
     });
     // Agregar los elementos al contenedor del producto
     productoContainer.appendChild(nombreProducto);
@@ -393,8 +407,43 @@ if (isDifferentPage && window.location.pathname !== "/nosotros.html"){
 window.onload = async() => {
   const productos=await(await fetch("/api/productos")).json();
     cargarCarrito();
+    function buscarProductos(productos,categoriaSeleccionada){
+  
+      limpiarProductos();
+      const valorBusqueda = inputBusqueda.value.trim().toLowerCase();
+      if(isDifferentPage  && categoriaSeleccionada){
+        console.log("categoriaSeleccionada")
+        const productosFiltrados = productos.filter(
+          (producto) =>
+            producto.nombre.toLowerCase().includes(valorBusqueda) &&
+            producto.categoria === categoriaSeleccionada
+        );
+        mostrarProductos(productosFiltrados,valorBusqueda);
+    
+      }else if(isDifferentPage && valorBusqueda.length > 0){
+        mostrarProductos(productos,valorBusqueda);
+        console.log("Busqueda")
+      }else{
+        mostrarProductos(productos);
+        console.log("categoriaSeleccionada")
+      }
+    }
+    if(isDifferentPage && window.location.pathname !== "/nosotros.html"){
+      inputBusqueda.addEventListener('keyup', function(event) {
+        if (event.keyCode === 13) {
+          buscarProductos(productos);
+        }
+      });
+      clasificacionesLista.addEventListener('click', (event) => {
+        if (event.target.classList.contains('clasificacion')) {
+          const categoriaSeleccionada = event.target.textContent;
+          buscarProductos(productos,categoriaSeleccionada);
+        }
+      });
+    }
     mostrarProductos(productos);
     console.log(productos)
+    
     const productosCargadosEvent = new Event("productosCargados");
     document.dispatchEvent(productosCargadosEvent);  
 }
