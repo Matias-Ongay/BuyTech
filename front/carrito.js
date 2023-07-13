@@ -187,8 +187,6 @@ function mostrarProductos(productos, valorBusqueda = '') {
           p1.textContent = producto.nombre;
           p2.textContent=producto.precio;
           descriptionBtn.style.backgroundColor="#782424"
-        
-          
         }, 2000);
         const nombreProducto = producto.nombre;
         const precioProducto = producto.precio;
@@ -213,12 +211,11 @@ function mostrarProductos(productos, valorBusqueda = '') {
         descriptionBtn2.style.backgroundColor="rgba(0, 0, 0, 0.75)";
         p12.innerHTML = 'Agregado';
         p22.innerHTML='al carrito';
-        setTimeout(function() {
+        setTimeout(function(){
           p12.textContent = producto.nombre;
           p22.textContent=producto.precio;
           descriptionBtn2.style.backgroundColor="#782424"
-        
-          
+
         }, 2000);
 
         const nombreProducto = producto.nombre;
@@ -295,7 +292,7 @@ function openPop(){
   const totalContainer=document.createElement('div');
     totalContainer.classList.add('contenedor-total');
     const valorTotal = carro.reduce((total, producto) => {
-      const precio = parseFloat(producto.precio.replace('$', ''));
+      const precio = parseFloat(producto.precio);
       const cantidad = producto.cantidad;
       return total + (precio * cantidad);
     }, 0);
@@ -326,7 +323,7 @@ function openPop(){
     const nombreProducto = document.createElement('p');
     nombreProducto.textContent = producto.nombre;
     const precioProducto = document.createElement('p');
-    precioProducto.textContent = `$${(parseFloat(producto.precio.replace('$', '')) * producto.cantidad).toFixed(2)}`;
+    precioProducto.textContent = `$${(parseFloat(producto.precio) * producto.cantidad).toFixed(2)}`;
 
     const cantidadContainer = document.createElement('div');
     cantidadContainer.classList.add('cantidad-container');
@@ -393,6 +390,27 @@ function openPop(){
   pago.appendChild(mp);
   mp.appendChild(textoPago);
   mp.appendChild(imagenuala);
+  async function pay() {
+    const response = await fetch("/api/pay", {
+      method: "post",
+      body: JSON.stringify(carro),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const preference = await response.json();
+  
+    const script = document.createElement("script");
+    script.src = "https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js";
+    script.type = "text/javascript";
+    script.dataset.preferenceId = preference.preferenceId;
+    pago.appendChild(script);
+  }
+  
+  mp.addEventListener("click", () => {
+    pay();
+  });
+  
 }
 //Carrito para toda la pagina
 if (isDifferentPage && window.location.pathname !== "/nosotros.html"){
@@ -442,7 +460,6 @@ window.onload = async() => {
       });
     }
     mostrarProductos(productos);
-    console.log(productos)
     
     const productosCargadosEvent = new Event("productosCargados");
     document.dispatchEvent(productosCargadosEvent);  
