@@ -29,7 +29,7 @@ const productos = [
     },
     {
       nombre: "GTX 1660 SUPER 6G",
-      imagenSrc: "images/GTX1660.jpg",
+      imagenSrc: "images/gtx1660.jpg",
       precio: "175000",
       categoria:"Placa de video",
       id:3,
