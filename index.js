@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -158,7 +158,12 @@ app.post("/api/pay", async (req, res) => {
 
   const preference = {
     items: items,
-    
+    back_urls: {
+      "success":"localhost:3000/index.html",
+      "failure":"localhost:3000/index.html",
+      "pending":"localhost:3000/index.html",
+    },
+    auto_return:"approved",
   };
 
   try {
@@ -170,7 +175,6 @@ app.post("/api/pay", async (req, res) => {
     res.status(500).json({ error: "Hubo un error al generar la preferencia" });
   }
 });
-
 app.use("/", express.static("front"));
 
 app.listen(port, () => {

@@ -409,6 +409,8 @@ function openPop(){
   
   mp.addEventListener("click", () => {
     pay();
+    carro = [];
+    guardarCarrito();
   });
   
 }
