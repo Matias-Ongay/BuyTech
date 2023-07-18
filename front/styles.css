@@ -21,6 +21,7 @@ body{
 }
 .top h1{
     color: rgba(0, 0, 0, 0.75);
+    font-size: 30px;
 }
 .sub{
     display: flex;
@@ -201,6 +202,10 @@ body{
   width: 64px;
   height: 64px;
 }
+.line1 h2{
+  font-size: 30px;
+  color:rgba(0, 0, 0, 0.75);
+ }
 .carrousel,.carrousel2 {
   display: flex;
   overflow-y: hidden;
@@ -297,6 +302,7 @@ body{
     display: flex;
     flex-direction: column;
     padding: 10px;
+    font-size: 14px;
   }
   .icons{
     flex-direction: row;
@@ -411,3 +417,73 @@ body{
     width: 64px;
     height: 64px;
   } 
+
+  /*MEDIA QUERIES*/
+  @media(min-width:550px){
+   .top img{
+    width: 100px;
+    height: 100px;
+   } 
+   .top h1{
+    font-size: 40px;
+   }
+   .navbar-brand{
+    font-size: 30px;
+   }
+   .navbar{
+    font-size: 27px;
+   }
+   .sub button{
+    font-size: 25px;
+   }
+   .sub img{
+    width: 35px;
+    height: 35px;
+   }
+   .line1 img{
+    width: 85px;
+    height: 85px;
+   }
+   .line1 h2{
+    font-size: 40px;
+   }
+   .container-product,.container-product2{
+    width:300px;
+   }
+   .image{
+    height: 300px;
+    width: 300px;
+   }
+   .carrousel,.carrousel2{
+    height: 500px;
+   }
+   .description{
+    max-width: 300px;
+    font-size: 25px;
+   }
+   .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
+    top: 64%;
+   } 
+   .foot{
+    font-size: 20px;
+   }
+  }
+@media(min-width:700px){
+  .container-product,.container-product2{
+    width:220px;
+   }
+   .image{
+    height: 220px;
+    width: 220px;
+   }
+   .carrousel,.carrousel2{
+    height: 400px;
+   }
+   .description{
+    max-width: 220px;
+    font-size: 20px;
+   }
+   .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
+    top: 60%;
+   } 
+}
