@@ -141,7 +141,7 @@ function mostrarProductos(productos, valorBusqueda = '') {
       p1.textContent = producto.nombre;
       const p2 = document.createElement("p");
       p2.className = "text";
-      p2.textContent = producto.precio;
+      p2.textContent = `$${producto.precio}`;
       descriptionBtn.appendChild(p1);
       descriptionBtn.appendChild(p2);
     
@@ -154,7 +154,7 @@ function mostrarProductos(productos, valorBusqueda = '') {
         p12.textContent = producto.nombre;
         const p22 = document.createElement("p");
         p22.className = "text";
-        p22.textContent = producto.precio;
+        p22.textContent = `$${producto.precio}`;
       if (isDifferentPage && window.location.pathname !== "/nosotros.html") {
         console.log("PRODUCTOS")
         listadoProductos.appendChild(containerProduct);
@@ -185,7 +185,7 @@ function mostrarProductos(productos, valorBusqueda = '') {
         p2.innerHTML='al carrito';
         setTimeout(function() {
           p1.textContent = producto.nombre;
-          p2.textContent=producto.precio;
+          p2.textContent=`$${producto.precio}`;
           descriptionBtn.style.backgroundColor="#782424"
         }, 2000);
         const nombreProducto = producto.nombre;
@@ -213,7 +213,7 @@ function mostrarProductos(productos, valorBusqueda = '') {
         p22.innerHTML='al carrito';
         setTimeout(function(){
           p12.textContent = producto.nombre;
-          p22.textContent=producto.precio;
+          p22.textContent=`$${producto.precio}`;
           descriptionBtn2.style.backgroundColor="#782424"
 
         }, 2000);
@@ -289,94 +289,111 @@ function openPop(){
   closeButton.addEventListener('click', () => {
     popupContainer.remove();
   });
-  const totalContainer=document.createElement('div');
-    totalContainer.classList.add('contenedor-total');
-    const valorTotal = carro.reduce((total, producto) => {
-      const precio = parseFloat(producto.precio);
-      const cantidad = producto.cantidad;
-      return total + (precio * cantidad);
-    }, 0);
-    const totalText = document.createElement('p');
-    totalText.textContent = `Total: $${valorTotal.toFixed(2)}`;
-    function actualizarValorTotal() {
-      const valorTotal = carro.reduce((total, producto) => {
-        const precio = parseFloat(producto.precio.replace('$', ''));
-        const cantidad = producto.cantidad;
-        return total + (precio * cantidad);
-      }, 0);
-    
-      totalText.textContent = `Total: $${valorTotal.toFixed(2)}`;
-      guardarCarrito();
-    }
-  pop.appendChild(popupContainer);
-  popupContainer.appendChild(popupContent);
-  popupContent.appendChild(popupTop);
-  popupTop.appendChild(closeButton);
-  popupContent.appendChild(productContent);
-  productContent.appendChild(textProduct);
-  popupContent.appendChild(totalContainer);
-  totalContainer.appendChild(totalText);
-  carro.forEach((producto,index) => {
-    // Crear elementos para cada producto
-    const productoContainer = document.createElement('div');
-    productoContainer.classList.add('producto-container');
-    const nombreProducto = document.createElement('p');
-    nombreProducto.textContent = producto.nombre;
-    const precioProducto = document.createElement('p');
-    precioProducto.textContent = `$${(parseFloat(producto.precio) * producto.cantidad).toFixed(2)}`;
+  const totalContainer = document.createElement('div');
+totalContainer.classList.add('contenedor-total');
+const valorTotal = carro.reduce((total, producto) => {
+  const precio = Math.round(parseFloat(producto.precio.replace('$', '')));
 
-    const cantidadContainer = document.createElement('div');
-    cantidadContainer.classList.add('cantidad-container');
-    const cantidadProducto = document.createElement('input');
-    cantidadProducto.setAttribute('type', 'number');
+  const cantidad = producto.cantidad;
+  return total + (precio * cantidad);
+}, 0);
+const totalText = document.createElement('p');
+totalText.textContent = `Total: $${valorTotal}`;
+
+function actualizarValorTotal() {
+  const valorTotal = carro.reduce((total, producto) => {
+    const precio = Math.round(parseFloat(producto.precio.replace('$', '')));
+    const cantidad = producto.cantidad;
+    return total + (precio * cantidad);
+  }, 0);
+
+  totalText.textContent = `Total: $${valorTotal}`;
+  guardarCarrito();
+}
+
+pop.appendChild(popupContainer);
+popupContainer.appendChild(popupContent);
+popupContent.appendChild(popupTop);
+popupTop.appendChild(closeButton);
+popupContent.appendChild(productContent);
+productContent.appendChild(textProduct);
+popupContent.appendChild(totalContainer);
+totalContainer.appendChild(totalText);
+
+carro.forEach((producto, index) => {
+  // Crear elementos para cada producto
+  const productoContainer = document.createElement('div');
+  productoContainer.classList.add('producto-container');
+  const nombreProducto = document.createElement('p');
+  nombreProducto.textContent = producto.nombre;
+  const precioProducto = document.createElement('p');
+
+  // Redondear el precio sin decimales
+  const precioSinDecimales = Math.round(parseFloat(producto.precio.replace('$', ''))) * producto.cantidad;
+  precioProducto.textContent = `$${precioSinDecimales}`;
+
+  const cantidadContainer = document.createElement('div');
+  cantidadContainer.classList.add('cantidad-container');
+  const cantidadProducto = document.createElement('input');
+  cantidadProducto.setAttribute('type', 'number');
+  cantidadProducto.value = producto.cantidad.toString();
+  const botonAumentar = document.createElement('button');
+  botonAumentar.classList.add('botones');
+  botonAumentar.textContent = '+';
+  const botonDisminuir = document.createElement('button');
+  botonDisminuir.classList.add('botones');
+  botonDisminuir.textContent = '-';
+  botonAumentar.addEventListener('click', () => {
+    producto.cantidad += 1;
     cantidadProducto.value = producto.cantidad.toString();
-    const botonAumentar = document.createElement('button');
-    botonAumentar.classList.add('botones');
-    botonAumentar.textContent = '+';
-    const botonDisminuir = document.createElement('button');
-    botonDisminuir.classList.add('botones');
-    botonDisminuir.textContent = '-';
-    botonAumentar.addEventListener('click', () => {
-      producto.cantidad += 1;
-      cantidadProducto.value = producto.cantidad.toString();
-      precioProducto.textContent = `$${(parseFloat(producto.precio.toString().replace('$', '')) * producto.cantidad).toFixed(2)}`;
-      actualizarValorTotal(); // Actualizar el valor total al aumentar la cantidad
-    });
-  
-    botonDisminuir.addEventListener('click', () => {
-      if (producto.cantidad > 1) {
-        producto.cantidad -= 1;
-        cantidadProducto.value = producto.cantidad.toString();
-        precioProducto.textContent = `$${(parseFloat(producto.precio.toString().replace('$', '')) * producto.cantidad).toFixed(2)}`;
-        actualizarValorTotal(); // Actualizar el valor total al disminuir la cantidad
-      }
-    });
-    const eliminarProducto = document.createElement('button');
-    eliminarProducto.classList.add('eliminar');
-    eliminarProducto.textContent = 'X';
-    eliminarProducto.addEventListener('click', () => {
-      const productoId = producto.id;
-      // Lógica para eliminar el producto del carrito
-      productoContainer.remove();
 
-      eliminarProductoCarrito(productoId);
-      actualizarValorTotal();
-      // ...
-      // También puedes eliminar el elemento del DOM si lo deseas
-      
-    });
-    // Agregar los elementos al contenedor del producto
-    productoContainer.appendChild(nombreProducto);
-    productoContainer.appendChild(precioProducto);
-    cantidadContainer.appendChild(botonDisminuir);
-    cantidadContainer.appendChild(cantidadProducto);
-    cantidadContainer.appendChild(botonAumentar);
-    productoContainer.appendChild(cantidadContainer);
-    productoContainer.appendChild(eliminarProducto);
+    // Actualizar el precio del producto sin decimales al aumentar la cantidad
+    const precioSinDecimales = Math.round(parseFloat(producto.precio.replace('$', ''))) * producto.cantidad;
+    precioProducto.textContent = `$${precioSinDecimales}`;
 
-    // Agregar el contenedor del producto al contenedor principal
-    productContent.appendChild(productoContainer);
+    actualizarValorTotal(); // Actualizar el valor total al aumentar la cantidad
   });
+
+  botonDisminuir.addEventListener('click', () => {
+    if (producto.cantidad > 1) {
+      producto.cantidad -= 1;
+      cantidadProducto.value = producto.cantidad.toString();
+
+      // Actualizar el precio del producto sin decimales al disminuir la cantidad
+      const precioSinDecimales = Math.round(parseFloat(producto.precio.replace('$', ''))) * producto.cantidad;
+      precioProducto.textContent = `$${precioSinDecimales}`;
+
+      actualizarValorTotal(); // Actualizar el valor total al disminuir la cantidad
+    }
+  });
+
+  const eliminarProducto = document.createElement('button');
+  eliminarProducto.classList.add('eliminar');
+  eliminarProducto.textContent = 'X';
+  eliminarProducto.addEventListener('click', () => {
+    const productoId = producto.id;
+    // Lógica para eliminar el producto del carrito
+    productoContainer.remove();
+
+    eliminarProductoCarrito(productoId);
+    actualizarValorTotal();
+    // ...
+    // También puedes eliminar el elemento del DOM si lo deseas
+  });
+
+  // Agregar los elementos al contenedor del producto
+  productoContainer.appendChild(nombreProducto);
+  productoContainer.appendChild(precioProducto);
+  cantidadContainer.appendChild(botonDisminuir);
+  cantidadContainer.appendChild(cantidadProducto);
+  cantidadContainer.appendChild(botonAumentar);
+  productoContainer.appendChild(cantidadContainer);
+  productoContainer.appendChild(eliminarProducto);
+
+  // Agregar el contenedor del producto al contenedor principal
+  productContent.appendChild(productoContainer);
+});
+
   //contenedores de pago y envios
   const pago=document.createElement('div');
   pago.classList.add('contenedor-pago');

@@ -111,21 +111,27 @@ body{
   display: flex;
   color: rgba(0, 0, 0, 0.75);
   padding: 10px;
-  
+  height: 60px;
   border-top: 1px solid rgba(0, 0, 0, 0.75);
   border-bottom:1px solid rgba(0, 0, 0, 0.75);
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 }
 .producto-container p{
   color: rgba(0, 0, 0, 0.75);
   align-items: center;
+  text-align: center;
   margin: 0px;
+  font-size: 13px;
+  flex-basis: 25%
 }
 .producto-container input{
   width: 20px;
   border: 0px;
-  
   text-align: center;
+}
+.cantidad-container{
+  flex-basis: 25%;
 }
 .eliminar{
   background-color: #782424;

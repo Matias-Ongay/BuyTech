@@ -76,7 +76,7 @@ const productos = [
       cantidad:1
     },
     {
-      nombre: "Ram Corsair 3600mhz 8g",
+      nombre: "Ram Corsair 3600mhz",
       imagenSrc: "images/ramcorsair.jpg",
       precio: "25000",
       categoria:"Memorias Ram",
@@ -84,7 +84,7 @@ const productos = [
       cantidad:1
     },
     {
-      nombre: "Ram Fury 3200mhz 8g",
+      nombre: "Ram Fury 3200mhz",
       imagenSrc: "images/ramfury.jpg",
       precio: "20000",
       categoria:"Memorias Ram",
@@ -92,7 +92,7 @@ const productos = [
       cantidad:1
     },
     {
-      nombre: "Disco Interno m.2 1T",
+      nombre: "Disco m.2 1T",
       imagenSrc: "images/m.2.jpg",
       precio: "32000",
       categoria:"Almacenamiento",
@@ -100,7 +100,7 @@ const productos = [
       cantidad:1
     },
     {
-      nombre: "Disco Solido ssd 480G",
+      nombre: "Disco ssd 480G",
       imagenSrc: "images/solido.jpg",
       precio: "25000",
       categoria:"Almacenamiento",
@@ -132,7 +132,7 @@ const productos = [
       cantidad:1
     },
     {
-      nombre: "Gabinete Cooler Master",
+      nombre: "Gabinete CMaster",
       imagenSrc: "images/gabinetecooler.jpg",
       precio: "34000",
       categoria:"Gabinete",
