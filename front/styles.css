@@ -69,6 +69,7 @@ body{
     justify-content: center;
     align-items: center;
     z-index: 2;
+    
  }
  .popup-content {
   display: flex;
@@ -76,6 +77,7 @@ body{
   flex-direction: column;
   width: 90%;
   height: 80%;
+  border: 0px;
   background-color: white;
   color: rgb(43, 52, 130);
   top: 90px;
@@ -467,6 +469,36 @@ body{
    .foot{
     font-size: 20px;
    }
+   /*carrito*/
+   .popup-content{
+    width: 70%;
+    height: 80%;
+   }
+   .poptop{
+    font-size: 30px;
+   }
+   .text-product{
+    font-size: 40px;
+   }
+   .producto-container{
+    height: 70px;
+   }
+   .producto-container p{
+    font-size: 20px;
+   }
+   .eliminar{
+    width: 33px;
+    height: 33px;
+   }
+   .contenedor-total p{
+    font-size: 38px;
+   }
+   .boton-pago{
+    height: 90px;
+   }
+   .boton-pago p{
+    font-size: 35px;
+   } 
   }
 @media(min-width:700px){
   .container-product,.container-product2{
@@ -486,4 +518,111 @@ body{
    .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
     top: 60%;
    } 
+   .carousel-item img{
+    height: 500px;
+   }
+   /*Productos*/
+   .search input{
+    padding: 13px;
+   }
+   .productos-listado .container-product {
+    width: 200px;
+   }
+   .productos-listado .container-product .image{
+    height: 200px;
+    width: 200px;
+   }
+   .productos-listado .container-product .description{
+    font-size: 18px;
+   }
+}
+
+@media(min-width:1200px){
+  .container-product,.container-product2{
+    width:300px;
+   }
+   .image{
+    height: 300px;
+    width: 300px;
+   }
+   .carrousel,.carrousel2{
+    height: 500px;
+   }
+   .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
+    top: 64%;
+   } 
+   .description{
+    max-width: 300px;
+    font-size: 24px;
+   }
+   .carousel-item img{
+    height: 700px;
+   }
+   .popup-content{
+    width: 60%;
+    height: 80%;
+   }
+   .poptop{
+    font-size: 35px;
+   }
+   .text-product{
+    font-size: 43px;
+   }
+   .producto-container{
+    height: 76px;
+   }
+   .producto-container p{
+    font-size: 24px;
+   }
+   .eliminar{
+    width: 40px;
+    height: 40px;
+   }
+   .contenedor-total p{
+    font-size: 42px;
+   }
+   .boton-pago{
+    height: 100px;
+   }
+   .boton-pago p{
+    font-size: 40px;
+   } 
+   .productos-desktop{
+   display: flex;
+   justify-content: flex-end;
+   
+   }
+   .productos{
+    margin-top: 30px;
+    display: flex;
+    width: 70%;
+    
+   }
+   .hot-sale{
+    width: 30%;
+    align-items: normal;
+    
+   }
+   .line1 h2{
+    font-size: 50px;
+   }
+   .search{
+    font-size: 25px;
+   }
+   .clasificaciones-btn{
+    color: rgba(0, 0, 0, 0.75);
+    border-radius: 10px;
+    border: 0px;
+   }
+   .clasificaciones-container{
+    font-size: 35px;
+    border:solid rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    color: #E6E9F2;
+    background-color: rgba(0, 0, 0, 0.75);
+   }
+
+
+
+
 }
