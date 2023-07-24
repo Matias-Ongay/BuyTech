@@ -7,6 +7,16 @@
     box-sizing: border-box;
 }
 /*header*/
+header{
+  top: 0;
+  z-index: 10;
+  position: fixed;
+  background-color: #E6E9F2;
+  width: 100%;
+}
+main{
+  margin-top: 180px;
+}
 body{
     background-color:#E6E9F2;
     font-family: 'Roboto', sans-serif;
@@ -38,7 +48,9 @@ body{
 }
 .sub img{
     width: 25px;
+    
 }
+
 .custom-navbar {
     background-color: rgba(0, 0, 0, 0.75);
     
@@ -68,7 +80,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 100;
     
  }
  .popup-content {

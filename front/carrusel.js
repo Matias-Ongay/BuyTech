@@ -2,7 +2,7 @@
   
 /*carrusel de productos 1*/ 
 function inicializarCarrusel() {
-  let count = 0;
+let count = 0; 
 let inc = 0;
 let margin = 0;
 let slider = document.querySelector(".slider-width"); 

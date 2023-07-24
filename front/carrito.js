@@ -1,6 +1,8 @@
 /*productos momentanes en el front */
 
 let carro = [];
+let contador=document.querySelector('.cart-counter');
+let contadorProductos=0;
 // Función para guardar el carrito en el localStorage
 function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carro));
@@ -204,6 +206,8 @@ function mostrarProductos(productos, valorBusqueda = '') {
           const cantidadProducto = producto.cantidad;
           carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto,categorias:categorias });
           console.log("Producto agregado al carrito:", nombreProducto);
+          contadorProductos=contadorProductos+1;
+          contador.textContent=contadorProductos;
         }
         guardarCarrito();
       });
@@ -234,6 +238,8 @@ function mostrarProductos(productos, valorBusqueda = '') {
           const cantidadProducto = producto.cantidad;
           carro.push({ nombre: nombreProducto, precio: precioProducto, id: idProducto, cantidad: cantidadProducto,categorias:categorias });
           console.log("Producto agregado al carrito:", nombreProducto);
+          contadorProductos=contadorProductos+1;
+          contador.textContent=contadorProductos;
         }
         guardarCarrito();
       });
@@ -253,6 +259,8 @@ function eliminarProductoCarrito(productoId) {
      carro.splice(index, 1);
      console.log("Producto eliminado");
      guardarCarrito();
+     contadorProductos=contadorProductos-1;
+     contador.textContent=contadorProductos;
  
      // Actualizar los elementos del carrito en el DOM
      const productosContainer = document.getElementsByClassName('producto-container');
