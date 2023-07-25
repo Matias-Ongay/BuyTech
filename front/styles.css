@@ -675,8 +675,10 @@ body{
   }
 }
 @media(min-width:2000px){
-  
-  
+
+  main{
+    margin: 10%;
+  }
   .container-product,.container-product2{
     width:400px;
    }
