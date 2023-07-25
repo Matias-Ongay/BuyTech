@@ -680,20 +680,20 @@ body{
     margin: 10%;
   }
   .container-product,.container-product2{
-    width:400px;
+    width:300px;
    }
    .image{
-    height: 400px;
-    width: 400px;
+    height: 300px;
+    width: 300px;
    }
    .carrousel,.carrousel2{
     height: 700px;
    }
    .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
-    top: 60%;
+    top: 46%;
    } 
    .description{
-    max-width: 400px;
+    max-width: 300px;
     font-size: 29px;
    }
 }
