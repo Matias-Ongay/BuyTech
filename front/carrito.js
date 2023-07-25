@@ -2,7 +2,7 @@
 
 let carro = [];
 let contador=document.querySelector('.cart-counter');
-let contadorProductos=0;
+let contadorProductos=parseInt(contador);
 // Función para guardar el carrito en el localStorage
 function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carro));
@@ -450,6 +450,7 @@ if (isDifferentPage && window.location.pathname !== "/nosotros.html"){
 
 
 window.onload = async() => {
+  
   const productos=await(await fetch("/api/productos")).json();
     cargarCarrito();
     function buscarProductos(productos,categoriaSeleccionada){
@@ -487,7 +488,9 @@ window.onload = async() => {
       });
     }
     mostrarProductos(productos);
-    
+    contadorProductos=carro.length;
+    contador.textContent=contadorProductos;
+    console.log(contadorProductos)
     const productosCargadosEvent = new Event("productosCargados");
     document.dispatchEvent(productosCargadosEvent);  
 }

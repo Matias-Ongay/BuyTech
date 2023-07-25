@@ -209,7 +209,7 @@ body{
     padding: 5px;
 }  
 .line1{
-    border-bottom: 1px solid rgba(0, 0, 0, 0.75);
+    
     width: 100%;
 }
 .line1 img{
@@ -221,6 +221,7 @@ body{
   color:rgba(0, 0, 0, 0.75);
  }
 .carrousel,.carrousel2 {
+  border-top: 1px solid rgba(0, 0, 0, 0.75);
   display: flex;
   overflow-y: hidden;
     position: relative;
@@ -371,6 +372,7 @@ body{
     
   }
   .productos-listado .container-product .description{
+    
     margin-top: 0px;
     font-size: 14px;
   }
@@ -547,28 +549,37 @@ body{
    .productos-listado .container-product .description{
     font-size: 18px;
    }
+   .text-down{
+    font-size: 23px;
+  }
 }
 
 @media(min-width:1200px){
+  main{
+    margin-top: 230px;
+  }
+  .productos-main {
+    max-height: 400px;
+  }
   .container-product,.container-product2{
-    width:300px;
+    width:280px;
    }
    .image{
-    height: 300px;
-    width: 300px;
+    height: 280px;
+    width: 280px;
    }
    .carrousel,.carrousel2{
     height: 500px;
    }
    .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
-    top: 64%;
+    top: 60%;
    } 
    .description{
-    max-width: 300px;
+    max-width: 280px;
     font-size: 24px;
    }
    .carousel-item img{
-    height: 700px;
+    height: 600px;
    }
    .popup-content{
     width: 60%;
@@ -626,15 +637,61 @@ body{
     border-radius: 10px;
     border: 0px;
    }
+   .clasificaciones-btn img{
+    border-radius: 10px;
+   }
    .clasificaciones-container{
     font-size: 35px;
-    border:solid rgba(0, 0, 0, 0.25);
+    border: 2px solid #782424;
     border-radius: 10px;
     color: #E6E9F2;
     background-color: rgba(0, 0, 0, 0.75);
    }
-
-
-
-
+   .productos-listado .container-product {
+    width: 300px;
+   }
+   .productos-listado .container-product .image{
+    height: 300px;
+    width: 300px;
+   }
+   .productos-listado .container-product .description{
+    font-size: 22px;
+    max-width: 300px;
+   }
+   .main-card{
+    display: flex;
+    flex-direction: row;
+   }
+   .text-down{
+    width: 50%;
+   }
+   .imagen-top{
+    width: 100%;
+    
+  }
+  .imagen-top img{
+    width: 100%;
+    
+  }
+}
+@media(min-width:2000px){
+  
+  
+  .container-product,.container-product2{
+    width:400px;
+   }
+   .image{
+    height: 400px;
+    width: 400px;
+   }
+   .carrousel,.carrousel2{
+    height: 700px;
+   }
+   .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
+    top: 60%;
+   } 
+   .description{
+    max-width: 400px;
+    font-size: 29px;
+   }
 }
