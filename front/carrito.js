@@ -325,84 +325,141 @@ popupContent.appendChild(popupTop);
 popupTop.appendChild(closeButton);
 popupContent.appendChild(productContent);
 productContent.appendChild(textProduct);
+
+//datos de facturacion
+const contenedorEnvio=document.createElement('div');
+contenedorEnvio.classList.add('contenedor-envio');
+const direccionFacturacion=document.createElement('p');
+direccionFacturacion.textContent='Direccion de facturacion';
+const codigoPostal=document.createElement('div');
+const postal=document.createElement('p');
+postal.textContent='Codigo Postal : ';
+const inputPostal=document.createElement('input')
+const calleNumero=document.createElement('div');
+const calle=document.createElement('p');
+calle.textContent='Calle y Numero : ';
+const inputCalle=document.createElement('input');
+const calcularEnvio=document.createElement('button');
+calcularEnvio.textContent='Calcular Costo';
+popupContent.appendChild(contenedorEnvio);
+contenedorEnvio.appendChild(direccionFacturacion);
+contenedorEnvio.appendChild(codigoPostal);
+codigoPostal.appendChild(postal);
+codigoPostal.appendChild(inputPostal);
+contenedorEnvio.appendChild(calleNumero);
+contenedorEnvio.appendChild(calcularEnvio);
+calleNumero.appendChild(calle);
+calleNumero.appendChild(inputCalle);
 popupContent.appendChild(totalContainer);
 totalContainer.appendChild(totalText);
+let codigoPostalValue = '';
+let calleValue = '';
+function guardarValoresInputs() {
+  localStorage.setItem('codigoPostal', inputPostal.value);
+  localStorage.setItem('calle', inputCalle.value);
+}
+function restaurarValoresInputs() {
+  codigoPostalValue = localStorage.getItem('codigoPostal');
+  calleValue = localStorage.getItem('calle');
+  inputPostal.value = codigoPostalValue;
+  inputCalle.value = calleValue;
+}
+calcularEnvio.addEventListener('click',()=>{
+  if(inputCalle.value && inputPostal.value){
+    codigoPostalValue=inputPostal.value;
+    calleValue=inputCalle.value;
+    console.log('Código Postal:', codigoPostalValue);
+    carro.push({ nombre:'Envio', precio:"$4000", id:100, cantidad:1,categorias:'' });
+    guardarValoresInputs();
+    while (productContent.firstChild) {
+      productContent.removeChild(productContent.firstChild);
+    }
+    carro1();
+    actualizarValorTotal();
 
-carro.forEach((producto, index) => {
-  // Crear elementos para cada producto
-  const productoContainer = document.createElement('div');
-  productoContainer.classList.add('producto-container');
-  const nombreProducto = document.createElement('p');
-  nombreProducto.textContent = producto.nombre;
-  const precioProducto = document.createElement('p');
-
-  // Redondear el precio sin decimales
-  const precioSinDecimales = Math.round(parseFloat(producto.precio.replace('$', ''))) * producto.cantidad;
-  precioProducto.textContent = `$${precioSinDecimales}`;
-
-  const cantidadContainer = document.createElement('div');
-  cantidadContainer.classList.add('cantidad-container');
-  const cantidadProducto = document.createElement('input');
-  cantidadProducto.setAttribute('type', 'number');
-  cantidadProducto.value = producto.cantidad.toString();
-  const botonAumentar = document.createElement('button');
-  botonAumentar.classList.add('botones');
-  botonAumentar.textContent = '+';
-  const botonDisminuir = document.createElement('button');
-  botonDisminuir.classList.add('botones');
-  botonDisminuir.textContent = '-';
-  botonAumentar.addEventListener('click', () => {
-    producto.cantidad += 1;
-    cantidadProducto.value = producto.cantidad.toString();
-
-    // Actualizar el precio del producto sin decimales al aumentar la cantidad
+  }else{
+    console.warn('Para calcular el envio completa todos los campos');
+  }
+})
+restaurarValoresInputs();
+function carro1(){
+  carro.forEach((producto, index) => {
+    // Crear elementos para cada producto
+    const productoContainer = document.createElement('div');
+    productoContainer.classList.add('producto-container');
+    const nombreProducto = document.createElement('p');
+    nombreProducto.textContent = producto.nombre;
+    const precioProducto = document.createElement('p');
+    
+    // Redondear el precio sin decimales
     const precioSinDecimales = Math.round(parseFloat(producto.precio.replace('$', ''))) * producto.cantidad;
     precioProducto.textContent = `$${precioSinDecimales}`;
-
-    actualizarValorTotal(); // Actualizar el valor total al aumentar la cantidad
-  });
-
-  botonDisminuir.addEventListener('click', () => {
-    if (producto.cantidad > 1) {
-      producto.cantidad -= 1;
+  
+    const cantidadContainer = document.createElement('div');
+    cantidadContainer.classList.add('cantidad-container');
+    const cantidadProducto = document.createElement('input');
+    cantidadProducto.setAttribute('type', 'number');
+    cantidadProducto.value = producto.cantidad.toString();
+    const botonAumentar = document.createElement('button');
+    botonAumentar.classList.add('botones');
+    botonAumentar.textContent = '+';
+    const botonDisminuir = document.createElement('button');
+    botonDisminuir.classList.add('botones');
+    botonDisminuir.textContent = '-';
+    botonAumentar.addEventListener('click', () => {
+      producto.cantidad += 1;
       cantidadProducto.value = producto.cantidad.toString();
-
-      // Actualizar el precio del producto sin decimales al disminuir la cantidad
+  
+      // Actualizar el precio del producto sin decimales al aumentar la cantidad
       const precioSinDecimales = Math.round(parseFloat(producto.precio.replace('$', ''))) * producto.cantidad;
       precioProducto.textContent = `$${precioSinDecimales}`;
-
-      actualizarValorTotal(); // Actualizar el valor total al disminuir la cantidad
-    }
+  
+      actualizarValorTotal(); // Actualizar el valor total al aumentar la cantidad
+    });
+  
+    botonDisminuir.addEventListener('click', () => {
+      if (producto.cantidad > 1) {
+        producto.cantidad -= 1;
+        cantidadProducto.value = producto.cantidad.toString();
+  
+        // Actualizar el precio del producto sin decimales al disminuir la cantidad
+        const precioSinDecimales = Math.round(parseFloat(producto.precio.replace('$', ''))) * producto.cantidad;
+        precioProducto.textContent = `$${precioSinDecimales}`;
+  
+        actualizarValorTotal(); // Actualizar el valor total al disminuir la cantidad
+      }
+    });
+  
+    const eliminarProducto = document.createElement('button');
+    eliminarProducto.classList.add('eliminar');
+    eliminarProducto.textContent = 'X';
+    eliminarProducto.addEventListener('click', () => {
+      const productoId = producto.id;
+      // Lógica para eliminar el producto del carrito
+      productoContainer.remove();
+  
+      eliminarProductoCarrito(productoId);
+      actualizarValorTotal();
+      // ...
+      // También puedes eliminar el elemento del DOM si lo deseas
+    });
+  
+    // Agregar los elementos al contenedor del producto
+    productoContainer.appendChild(nombreProducto);
+    productoContainer.appendChild(precioProducto);
+    cantidadContainer.appendChild(botonDisminuir);
+    cantidadContainer.appendChild(cantidadProducto);
+    cantidadContainer.appendChild(botonAumentar);
+    productoContainer.appendChild(cantidadContainer);
+    productoContainer.appendChild(eliminarProducto);
+  
+    // Agregar el contenedor del producto al contenedor principal
+    productContent.appendChild(productoContainer);
   });
-
-  const eliminarProducto = document.createElement('button');
-  eliminarProducto.classList.add('eliminar');
-  eliminarProducto.textContent = 'X';
-  eliminarProducto.addEventListener('click', () => {
-    const productoId = producto.id;
-    // Lógica para eliminar el producto del carrito
-    productoContainer.remove();
-
-    eliminarProductoCarrito(productoId);
-    actualizarValorTotal();
-    // ...
-    // También puedes eliminar el elemento del DOM si lo deseas
-  });
-
-  // Agregar los elementos al contenedor del producto
-  productoContainer.appendChild(nombreProducto);
-  productoContainer.appendChild(precioProducto);
-  cantidadContainer.appendChild(botonDisminuir);
-  cantidadContainer.appendChild(cantidadProducto);
-  cantidadContainer.appendChild(botonAumentar);
-  productoContainer.appendChild(cantidadContainer);
-  productoContainer.appendChild(eliminarProducto);
-
-  // Agregar el contenedor del producto al contenedor principal
-  productContent.appendChild(productoContainer);
-});
-
-  //contenedores de pago y envios
+}
+carro1();
+  
+  //contenedores de pago 
   const pago=document.createElement('div');
   pago.classList.add('contenedor-pago');
   const mp=document.createElement('button');
@@ -453,6 +510,7 @@ window.onload = async() => {
   
   const productos=await(await fetch("/api/productos")).json();
     cargarCarrito();
+    
     function buscarProductos(productos,categoriaSeleccionada){
   
       limpiarProductos();

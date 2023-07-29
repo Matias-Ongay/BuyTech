@@ -202,6 +202,42 @@ body{
   font-size: 25px;
   padding-right: 10px;
 }
+.contenedor-envio{
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #E6E9F2;
+  margin: 10px;
+  border-radius: 10px;
+  align-items: center;
+  
+}
+.contenedor-envio p{
+  font-size: 20px;
+}
+.contenedor-envio div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+}
+.contenedor-envio div input{
+  background-color: #E6E9F2;
+  color: rgba(0, 0, 0, 0.75);
+  height: 30px;
+  border-radius: 10px;
+  border: 0px;
+}
+.contenedor-envio button{
+  display:flex;
+  color: rgba(0, 0, 0, 0.75);
+  background-color: #E6E9F2;
+  border-radius: 10px;
+  border:0px;
+  padding:5px;
+  margin: 5px;
+}
  /*main*/
 .hot-sale{
     display: flex;
@@ -674,26 +710,30 @@ body{
     
   }
 }
-@media(min-width:2000px){
-
-  main{
-    margin: 10%;
+@media(min-width:1800px){
+  .p-main{
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+  .slide{
+    margin-right: 10%;
+    margin-left: 10%;
   }
   .container-product,.container-product2{
-    width:300px;
+    width:400px;
    }
    .image{
-    height: 300px;
-    width: 300px;
+    height: 400px;
+    width: 400px;
    }
    .carrousel,.carrousel2{
     height: 700px;
    }
    .carousel-prev, .carousel-next, .carousel-prev2, .carousel-next2{
-    top: 46%;
+    top: 60%;
    } 
    .description{
-    max-width: 300px;
+    max-width: 400px;
     font-size: 29px;
    }
 }
