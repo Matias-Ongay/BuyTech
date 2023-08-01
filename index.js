@@ -139,6 +139,7 @@ const productos = [
       id:16,
       cantidad:1
     }
+
   ];
 //retorno de productos
 app.get("/api/productos", (req, res) => {
@@ -146,24 +147,35 @@ app.get("/api/productos", (req, res) => {
 });
 
 app.post("/api/pay", async (req, res) => {
-  const productos = req.body;
-  const items = productos.map((producto) => {
-    return {
-      id: producto.id,
-      title: producto.nombre,
-      quantity: producto.cantidad,
-      unit_price: parseFloat(producto.precio),
-    };
-  });
+  const { productos, envio } = req.body; // Obtener el arreglo de productos y el valor del envío del cuerpo de la solicitud
+
+  // Crear un nuevo item para el envío
+  const envioItem = {
+    id: "envio", // Puedes utilizar un ID único para representar el envío
+    title: "Envío", // Puedes definir un título adecuado para el envío
+    quantity: 1, // Puedes asumir que siempre hay solo un envío
+    unit_price: parseFloat(envio), // Convertir el valor del envío a un número flotante
+  };
+
+  // Crear los items para los productos seleccionados
+  const items = productos.map((producto) => ({
+    id: producto.id,
+    title: producto.nombre,
+    quantity: producto.cantidad,
+    unit_price: parseFloat(producto.precio),
+  }));
+
+  // Agregar el item de envío a la lista de items
+  items.push(envioItem);
 
   const preference = {
     items: items,
     back_urls: {
-      "success":"localhost:3000/index.html",
-      "failure":"localhost:3000/index.html",
-      "pending":"localhost:3000/index.html",
+      success: "https://buytech-production.up.railway.app/index.html",
+      failure: "https://buytech-production.up.railway.app/index.html",
+      pending: "https://buytech-production.up.railway.app/index.html",
     },
-    auto_return:"approved",
+    auto_return: "approved",
   };
 
   try {
@@ -175,6 +187,7 @@ app.post("/api/pay", async (req, res) => {
     res.status(500).json({ error: "Hubo un error al generar la preferencia" });
   }
 });
+
 app.use("/", express.static("front"));
 
 app.listen(port, () => {

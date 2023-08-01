@@ -1,6 +1,8 @@
 /*productos momentanes en el front */
 
 let carro = [];
+let envio=[];
+
 let contador=document.querySelector('.cart-counter');
 let contadorProductos=parseInt(contador);
 // Función para guardar el carrito en el localStorage
@@ -208,6 +210,11 @@ function mostrarProductos(productos, valorBusqueda = '') {
           console.log("Producto agregado al carrito:", nombreProducto);
           contadorProductos=contadorProductos+1;
           contador.textContent=contadorProductos;
+          // Asegurar que contadorProductos no sea menor que 0
+          contadorProductos = Math.max(0, contadorProductos);
+
+          // Actualizar el valor del elemento 'contador' en el DOM
+          contador.textContent = contadorProductos;
         }
         guardarCarrito();
       });
@@ -261,6 +268,11 @@ function eliminarProductoCarrito(productoId) {
      guardarCarrito();
      contadorProductos=contadorProductos-1;
      contador.textContent=contadorProductos;
+     // Asegurar que contadorProductos no sea menor que 0
+     contadorProductos = Math.max(0, contadorProductos);
+
+     // Actualizar el valor del elemento 'contador' en el DOM
+     contador.textContent = contadorProductos;
  
      // Actualizar los elementos del carrito en el DOM
      const productosContainer = document.getElementsByClassName('producto-container');
@@ -364,20 +376,69 @@ function restaurarValoresInputs() {
   inputPostal.value = codigoPostalValue;
   inputCalle.value = calleValue;
 }
+function envio1(){
+  function generarNumeroAleatorioRedondeado() {
+    const min = 3000;
+    const max = 5500;
+    const random = Math.random();
+    const range = max - min + 1;
+    const numeroAleatorio = Math.round(random * range) + min;
+    return numeroAleatorio;
+  }
+  const productoContainer = document.createElement('div');
+  productoContainer.classList.add('producto-container');
+  const nombreProducto = document.createElement('p');
+  nombreProducto.textContent ="Envio";
+  const precioProducto = document.createElement('p');
+  
+ 
+  const precioSinDecimales = generarNumeroAleatorioRedondeado();
+  precioProducto.textContent = `$${precioSinDecimales}`;
+  const cantidadContainer = document.createElement('div');
+  cantidadContainer.classList.add('cantidad-container');
+  
+  const eliminarProducto = document.createElement('button');
+  eliminarProducto.classList.add('eliminar');
+  eliminarProducto.textContent = 'X';
+  eliminarProducto.addEventListener('click', () => {
+    // Lógica para eliminar el producto del carrito
+    productoContainer.remove();
+
+    eliminarProductoCarrito();
+    actualizarValorTotal();
+    // ...
+    // También puedes eliminar el elemento del DOM si lo deseas
+  });
+  // Agregar los elementos al contenedor del producto
+  productoContainer.appendChild(nombreProducto);
+  productoContainer.appendChild(precioProducto);
+  productoContainer.appendChild(cantidadContainer);
+  productoContainer.appendChild(eliminarProducto);
+
+  // Agregar el contenedor del producto al contenedor principal
+  productContent.appendChild(productoContainer);
+  envio[0]=precioSinDecimales;
+  guardarValoresInputs();
+  
+  actualizarValorTotal();
+  totalText.textContent = `Total: $${valorTotal+precioSinDecimales}`
+}
 calcularEnvio.addEventListener('click',()=>{
+  const codigoPostalInputValue = inputPostal.value;
+  const calleInputValue = inputCalle.value;
   if(inputCalle.value && inputPostal.value){
+    if (codigoPostalInputValue !== codigoPostalValue || calleInputValue !== calleValue) {
+     
     codigoPostalValue=inputPostal.value;
     calleValue=inputCalle.value;
     console.log('Código Postal:', codigoPostalValue);
-    carro.push({ nombre:'Envio', precio:"$4000", id:100, cantidad:1,categorias:'' });
-    guardarValoresInputs();
-    while (productContent.firstChild) {
-      productContent.removeChild(productContent.firstChild);
-    }
-    carro1();
-    actualizarValorTotal();
+    
+    envio1();
 
-  }else{
+  
+
+    }
+    }else{
     console.warn('Para calcular el envio completa todos los campos');
   }
 })
@@ -458,7 +519,7 @@ function carro1(){
   });
 }
 carro1();
-  
+envio1();
   //contenedores de pago 
   const pago=document.createElement('div');
   pago.classList.add('contenedor-pago');
@@ -473,9 +534,10 @@ carro1();
   mp.appendChild(textoPago);
   mp.appendChild(imagenuala);
   async function pay() {
+    const data = { productos: carro, envio: envio };
     const response = await fetch("/api/pay", {
       method: "post",
-      body: JSON.stringify(carro),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
