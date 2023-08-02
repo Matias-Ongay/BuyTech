@@ -433,7 +433,7 @@ calcularEnvio.addEventListener('click',()=>{
     envio1();
     }
     }else{
-    console.warn('Para calcular el envio completa todos los campos');
+    alert('Para calcular el envio completa todos los campos');
   }
 })
 restaurarValoresInputs();

@@ -103,6 +103,23 @@
         <p>Horarios de atencion: De 8 a 17hs todos los dias</p>
       </div>
     </footer>
+    <script>
+      // Obtener parámetros de la URL
+      const params = new URLSearchParams(window.location.search);
+  
+      // Leer el valor del parámetro 'status'
+      const status = params.get('status');
+  
+      // Función para mostrar la alerta
+      function mostrarAlerta() {
+        if (status === 'approved') {
+          alert("¡Felicidades por su compra! Su pedido ha sido procesado con éxito.");
+        }
+      }
+  
+      // Llamada a la función al cargar la página
+      window.onload = mostrarAlerta;
+    </script>
 </body>
 <script src="./carrito.js"></script>
 <script src="./carrusel.js"></script>
