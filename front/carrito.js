@@ -2,6 +2,7 @@
 
 let carro = [];
 let envio=[];
+envio[0]=0;
 
 let contador=document.querySelector('.cart-counter');
 let contadorProductos=parseInt(contador);
@@ -327,7 +328,7 @@ function actualizarValorTotal() {
     return total + (precio * cantidad);
   }, 0);
 
-  totalText.textContent = `Total: $${valorTotal}`;
+  totalText.textContent = `Total: $${valorTotal+parseInt(precioGuardado)}`;
   guardarCarrito();
 }
 
@@ -393,6 +394,7 @@ function envio1(){
   
  
   const precioSinDecimales = generarNumeroAleatorioRedondeado();
+  localStorage.setItem('precioGuardado', precioSinDecimales);
   precioProducto.textContent = `$${precioSinDecimales}`;
   const cantidadContainer = document.createElement('div');
   cantidadContainer.classList.add('cantidad-container');
@@ -401,13 +403,9 @@ function envio1(){
   eliminarProducto.classList.add('eliminar');
   eliminarProducto.textContent = 'X';
   eliminarProducto.addEventListener('click', () => {
-    // Lógica para eliminar el producto del carrito
+    
     productoContainer.remove();
-
-    eliminarProductoCarrito();
-    actualizarValorTotal();
-    // ...
-    // También puedes eliminar el elemento del DOM si lo deseas
+    
   });
   // Agregar los elementos al contenedor del producto
   productoContainer.appendChild(nombreProducto);
@@ -419,9 +417,9 @@ function envio1(){
   productContent.appendChild(productoContainer);
   envio[0]=precioSinDecimales;
   guardarValoresInputs();
-  
   actualizarValorTotal();
   totalText.textContent = `Total: $${valorTotal+precioSinDecimales}`
+  envio[0]=precioSinDecimales;
 }
 calcularEnvio.addEventListener('click',()=>{
   const codigoPostalInputValue = inputPostal.value;
@@ -432,11 +430,7 @@ calcularEnvio.addEventListener('click',()=>{
     codigoPostalValue=inputPostal.value;
     calleValue=inputCalle.value;
     console.log('Código Postal:', codigoPostalValue);
-    
     envio1();
-
-  
-
     }
     }else{
     console.warn('Para calcular el envio completa todos los campos');
@@ -519,7 +513,42 @@ function carro1(){
   });
 }
 carro1();
-envio1();
+//cargar envio en el carrito una vez ya puesto los inputs 
+const productoContainer = document.createElement('div');
+  productoContainer.classList.add('producto-container');
+  const nombreProducto = document.createElement('p');
+  nombreProducto.textContent ="Envio";
+  const precioProducto = document.createElement('p');
+ const precioGuardado = localStorage.getItem('precioGuardado');
+ precioProducto.textContent = `$${precioGuardado}`;
+  const cantidadContainer = document.createElement('div');
+  cantidadContainer.classList.add('cantidad-container');
+  
+  const eliminarProducto = document.createElement('button');
+  eliminarProducto.classList.add('eliminar');
+  eliminarProducto.textContent = 'X';
+  eliminarProducto.addEventListener('click', () => {
+    // Lógica para eliminar el producto del carrito
+    productoContainer.remove();
+
+    eliminarProductoCarrito();
+    actualizarValorTotal();
+    // ...
+    // También puedes eliminar el elemento del DOM si lo deseas
+  });
+  // Agregar los elementos al contenedor del producto
+  productoContainer.appendChild(nombreProducto);
+  productoContainer.appendChild(precioProducto);
+  productoContainer.appendChild(cantidadContainer);
+  productoContainer.appendChild(eliminarProducto);
+
+  // Agregar el contenedor del producto al contenedor principal
+  productContent.appendChild(productoContainer);
+  guardarValoresInputs();
+  
+  actualizarValorTotal();
+  totalText.textContent = `Total: $${valorTotal+parseInt(precioGuardado)}`
+  envio[0]=precioGuardado;
   //contenedores de pago 
   const pago=document.createElement('div');
   pago.classList.add('contenedor-pago');
