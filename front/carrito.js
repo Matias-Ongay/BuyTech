@@ -3,6 +3,7 @@
 let carro = [];
 let envio=[];
 envio[0]=0;
+precioGuardado=0;
 
 let contador=document.querySelector('.cart-counter');
 let contadorProductos=parseInt(contador);
@@ -10,12 +11,9 @@ let contadorProductos=parseInt(contador);
 function guardarCarrito() {
   localStorage.setItem('carrito', JSON.stringify(carro));
 }
-console.log("Ruta actual:", window.location.pathname);
 let isDifferentPage = false; // Variable que indica si es una página diferente
-console.log(isDifferentPage)
 if (window.location.pathname !== "/" && window.location.pathname !== "/index.html" ) {
   isDifferentPage = true;
-  console.log("etro")
 }
 // Función para cargar el carrito desde el localStorage
 function cargarCarrito() {
@@ -165,7 +163,6 @@ function mostrarProductos(productos, valorBusqueda = '') {
         listadoProductos.appendChild(containerProduct);
 
       }else if( window.location.pathname !== "/nosotros.html"){
-        console.log("ELSE")
         sliderWidth.appendChild(containerProduct);
         const containerProduct2 = document.createElement("div");
         containerProduct2.className = "container-product2";
@@ -429,7 +426,6 @@ calcularEnvio.addEventListener('click',()=>{
      
     codigoPostalValue=inputPostal.value;
     calleValue=inputCalle.value;
-    console.log('Código Postal:', codigoPostalValue);
     envio1();
     }
     }else{
@@ -639,7 +635,6 @@ window.onload = async() => {
     mostrarProductos(productos);
     contadorProductos=carro.length;
     contador.textContent=contadorProductos;
-    console.log(contadorProductos)
     const productosCargadosEvent = new Event("productosCargados");
     document.dispatchEvent(productosCargadosEvent);  
 }
